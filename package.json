@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "portfolio",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -16,6 +17,9 @@
     "prettier": "^3.2.5",
     "turbo": "^2.9.18"
   },
-  "packageManager": "pnpm@8.15.6",
-  "name": "design-system"
+  "packageManager": "pnpm@11.9.0",
+  "volta": {
+    "node": "24.11.0",
+    "pnpm": "11.9.0"
+  }
 }
