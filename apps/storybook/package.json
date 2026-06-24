@@ -16,6 +16,7 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
