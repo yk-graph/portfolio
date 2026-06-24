@@ -1,9 +1,20 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
+
+catalog:
+  react: ^19.2.0
+  react-dom: ^19.2.0
+  typescript: ^5.7.0
+  '@types/react': ^19.2.0
+  '@types/react-dom': ^19.2.0
+  '@types/node': ^24.0.0
+
 allowBuilds:
   esbuild: true
+  sharp: true
   unrs-resolver: true
+
 minimumReleaseAgeExclude:
   - playwright-core@1.61.1
   - playwright@1.61.1
