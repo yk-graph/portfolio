@@ -1,0 +1,15 @@
+FROM node:24-alpine AS base
+RUN npm install -g pnpm@11.9.0
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+# Only copy manifests; source is mounted at runtime via volume
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY apps/web/package.json ./apps/web/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/typescript-config/package.json ./packages/typescript-config/
+RUN pnpm install --frozen-lockfile
+
+EXPOSE 4000
+# Hot-reload dev server
+CMD ["pnpm", "--filter", "web", "dev"]
