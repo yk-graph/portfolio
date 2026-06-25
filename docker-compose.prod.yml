@@ -1,0 +1,20 @@
+services:
+  web-prod:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: portfolio-web-prod
+    ports:
+      - '4000:4000'
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  storybook-prod:
+    build:
+      context: .
+      dockerfile: apps/storybook/Dockerfile
+    container_name: portfolio-storybook-prod
+    ports:
+      - '4006:80'
+    restart: unless-stopped

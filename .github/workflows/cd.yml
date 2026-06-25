@@ -1,0 +1,35 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - staging
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Mac mini
+    runs-on: [self-hosted, macOS, ARM64]
+
+    steps:
+      - name: Deploy
+        run: |
+          cd ~/server/srv/portfolio
+          git fetch origin
+
+          if [ "${{ github.ref_name }}" = "staging" ]; then
+            git switch staging
+            git pull origin staging
+            docker compose -f docker-compose.stg.yml up -d --build
+          elif [ "${{ github.ref_name }}" = "main" ]; then
+            git switch main
+            git pull origin main
+            docker compose -f docker-compose.prod.yml up -d --build
+          fi
+
+      - name: Clean up dangling images
+        run: docker image prune -f
