@@ -16,10 +16,12 @@
     "clean": {
       "cache": false
     },
+    "type-check": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
     "preview-storybook": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "cache": false
     }
   }

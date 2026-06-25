@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - staging
+      - main
+
+# Cancel older runs when a new push is made to the same PR (avoids wasted runs)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Lint, Type-check, Format, Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # 2. Set up pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+
+      # 3. Set up Node.js (pnpm cache is enabled automatically via packageManager field)
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24.11.0
+          cache: pnpm
+
+      # 4. Install dependencies
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 5. Lint
+      - name: Lint
+        run: pnpm lint
+
+      # 6. Type check
+      - name: Type check
+        run: pnpm type-check
+
+      # 7. Format check
+      - name: Format check
+        run: pnpm format:check
+
+      # 8. Build
+      - name: Build
+        run: pnpm build
