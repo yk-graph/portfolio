@@ -13,3 +13,4 @@ public/dist
 storybook-static/
 .pnpm-store
 .claude/settings.local.json
+create-issues.sh
