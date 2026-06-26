@@ -18,8 +18,8 @@
     "clean": "rm -rf .turbo node_modules dist"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@eslint/js": "^9.17.0",
+    "@repo/typescript-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "eslint": "^9.17.0",
@@ -27,11 +27,12 @@
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.14.0",
-    "typescript-eslint": "^8.18.0",
     "tsup": "^8.0.2",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.18.0"
   },
   "dependencies": {
+    "motion": "^12.42.0",
     "react": "catalog:"
   },
   "publishConfig": {
