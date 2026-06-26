@@ -6,6 +6,12 @@ settings:
 
 catalogs:
   default:
+    '@tailwindcss/postcss':
+      specifier: ^4.3.1
+      version: 4.3.1
+    '@tailwindcss/vite':
+      specifier: ^4.3.1
+      version: 4.3.1
     '@types/node':
       specifier: ^24.0.0
       version: 24.13.2
@@ -21,6 +27,9 @@ catalogs:
     react-dom:
       specifier: ^19.2.0
       version: 19.2.7
+    tailwindcss:
+      specifier: ^4.3.1
+      version: 4.3.1
     typescript:
       specifier: ^5.7.0
       version: 5.9.3
@@ -73,7 +82,7 @@ importers:
         specifier: ^10.4.6
         version: 10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(esbuild@0.27.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(storybook@10.4.6(@testing-library/dom@10.4.1)(@types/react@19.2.17)(prettier@3.8.4)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@5.9.3)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))
       '@tailwindcss/vite':
-        specifier: ^4.3.1
+        specifier: 'catalog:'
         version: 4.3.1(vite@8.0.16(@types/node@24.13.2)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))
       '@types/node':
         specifier: 'catalog:'
@@ -115,7 +124,7 @@ importers:
         specifier: ^10.4.6
         version: 10.4.6(@testing-library/dom@10.4.1)(@types/react@19.2.17)(prettier@3.8.4)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       tailwindcss:
-        specifier: ^4.3.1
+        specifier: 'catalog:'
         version: 4.3.1
       typescript:
         specifier: 'catalog:'
@@ -152,7 +161,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@tailwindcss/postcss':
-        specifier: ^4
+        specifier: 'catalog:'
         version: 4.3.1
       '@types/node':
         specifier: 'catalog:'
@@ -170,7 +179,7 @@ importers:
         specifier: 16.2.9
         version: 16.2.9(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)
       tailwindcss:
-        specifier: ^4
+        specifier: 'catalog:'
         version: 4.3.1
       typescript:
         specifier: 'catalog:'
