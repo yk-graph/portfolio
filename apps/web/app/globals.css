@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-/* Light mode (default) — placeholder inverse of dark palette; refine when light designs land. */
+/* Map Tailwind's `dark:` variant to the `.dark` class set by next-themes. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --color-dark-navy: #0f3b59;
   --color-dark-green: #1f580e;
@@ -16,15 +18,13 @@
   --foreground: var(--color-text-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-text-primary: #d9d9d9;
-    --color-text-inverse: #ffffff;
-    --color-text-muted: #9a9a9a;
+.dark {
+  --color-text-primary: #d9d9d9;
+  --color-text-inverse: #ffffff;
+  --color-text-muted: #9a9a9a;
 
-    --background: var(--color-dark-navy);
-    --foreground: var(--color-text-primary);
-  }
+  --background: var(--color-dark-navy);
+  --foreground: var(--color-text-primary);
 }
 
 @theme inline {
