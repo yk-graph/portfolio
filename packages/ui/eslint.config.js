@@ -20,6 +20,9 @@ export default [
       globals: {
         ...globals.browser,
       },
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     settings: {
       react: { version: 'detect' },
