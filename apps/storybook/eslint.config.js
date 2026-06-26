@@ -18,5 +18,8 @@ export default defineConfig([globalIgnores(['dist']), {
   ],
   languageOptions: {
     globals: globals.browser,
+    parserOptions: {
+      tsconfigRootDir: import.meta.dirname,
+    },
   },
 }, ...storybook.configs["flat/recommended"]])
