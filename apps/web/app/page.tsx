@@ -1,4 +1,13 @@
 import Image from 'next/image'
+import { Cat } from 'lucide-react'
+import { GithubIcon } from './components/icons/github-icon'
+import { LinkedinIcon } from './components/icons/linkedin-icon'
+
+const snsLinks = [
+  { href: 'https://github.com/yk-graph', label: 'GitHub', Icon: GithubIcon },
+  { href: 'https://www.linkedin.com/', label: 'LinkedIn', Icon: LinkedinIcon },
+  { href: '#', label: 'Cat', Icon: Cat },
+] as const
 
 export default function Home() {
   return (
@@ -46,6 +55,20 @@ export default function Home() {
             Documentation
           </a>
         </div>
+        <nav aria-label="Social links" className="flex gap-4">
+          {snsLinks.map(({ href, label, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-solid border-black/[.08] text-zinc-700 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-300 dark:hover:bg-[#1a1a1a]"
+            >
+              <Icon size={20} aria-hidden="true" />
+            </a>
+          ))}
+        </nav>
       </main>
     </div>
   )
