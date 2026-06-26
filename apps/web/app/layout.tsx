@@ -3,14 +3,18 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from './components/theme-provider'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const outfit = Outfit({
+  variable: '--font-outfit',
   subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const fraunces = Fraunces({
+  variable: '--font-fraunces',
   subsets: ['latin'],
+  weight: ['700', '900'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {

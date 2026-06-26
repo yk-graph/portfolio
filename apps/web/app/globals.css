@@ -4,16 +4,34 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  --color-dark-navy: #0f3b59;
+  --color-dark-green: #1f580e;
+  --color-olive-green: #7b790c;
+  --color-dark-olive: #332f03;
+  --color-loading-bg: #232628;
+
+  --color-text-primary: #232628;
+  --color-text-inverse: #ffffff;
+  --color-text-muted: #4a4a4a;
+
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--color-text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-primary: #d9d9d9;
+    --color-text-inverse: #ffffff;
+    --color-text-muted: #9a9a9a;
+
+    --background: var(--color-dark-navy);
+    --foreground: var(--color-text-primary);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
 .dark {
   --background: #0a0a0a;
@@ -23,5 +41,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
