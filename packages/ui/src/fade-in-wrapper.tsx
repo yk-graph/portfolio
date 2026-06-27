@@ -11,12 +11,7 @@ export interface FadeInWrapperProps extends Omit<HTMLMotionProps<'div'>, 'childr
   duration?: number
 }
 
-export function FadeInWrapper({
-  children,
-  delay = 0,
-  duration = 0.5,
-  ...rest
-}: FadeInWrapperProps) {
+export function FadeInWrapper({ children, delay = 0, duration = 0.5, ...rest }: FadeInWrapperProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}

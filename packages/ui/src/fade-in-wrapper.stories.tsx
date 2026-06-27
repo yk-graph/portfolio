@@ -38,9 +38,7 @@ export const ScrollIntoView: Story = {
   args: { children: <DemoCard /> },
   render: (args) => (
     <div>
-      <div className="flex h-screen items-center justify-center text-sm text-neutral-400">
-        Scroll down ↓
-      </div>
+      <div className="flex h-screen items-center justify-center text-sm text-neutral-400">Scroll down ↓</div>
       <FadeInWrapper {...args} />
     </div>
   ),
