@@ -21,6 +21,12 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.2.0
       version: 19.2.3
+    lucide-react:
+      specifier: ^1.21.0
+      version: 1.21.0
+    next-themes:
+      specifier: ^0.4.6
+      version: 0.4.6
     react:
       specifier: ^19.2.0
       version: 19.2.7
@@ -145,13 +151,13 @@ importers:
   apps/web:
     dependencies:
       lucide-react:
-        specifier: ^1.21.0
+        specifier: 'catalog:'
         version: 1.21.0(react@19.2.7)
       next:
         specifier: 16.2.9
         version: 16.2.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       next-themes:
-        specifier: ^0.4.6
+        specifier: 'catalog:'
         version: 0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
         specifier: 'catalog:'
@@ -193,13 +199,13 @@ importers:
   packages/ui:
     dependencies:
       lucide-react:
-        specifier: ^1.21.0
+        specifier: 'catalog:'
         version: 1.21.0(react@19.2.7)
       motion:
         specifier: ^12.42.0
         version: 12.42.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       next-themes:
-        specifier: ^0.4.6
+        specifier: 'catalog:'
         version: 0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
         specifier: 'catalog:'
