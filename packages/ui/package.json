@@ -34,7 +34,9 @@
     "typescript-eslint": "^8.18.0"
   },
   "dependencies": {
+    "lucide-react": "catalog:",
     "motion": "^12.42.0",
+    "next-themes": "catalog:",
     "react": "catalog:"
   },
   "publishConfig": {
