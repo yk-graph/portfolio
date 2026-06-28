@@ -23,5 +23,3 @@ export function Badge({ children, variant = 'neutral', className, ...rest }: Bad
     </span>
   )
 }
-
-Badge.displayName = 'Badge'

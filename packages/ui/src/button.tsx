@@ -11,5 +11,3 @@ export function Button({ children, ...other }: ButtonProps): JSX.Element {
     </button>
   )
 }
-
-Button.displayName = 'Button'

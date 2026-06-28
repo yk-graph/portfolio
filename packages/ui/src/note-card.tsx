@@ -51,5 +51,3 @@ export function NoteCard({
     </article>
   )
 }
-
-NoteCard.displayName = 'NoteCard'

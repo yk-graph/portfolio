@@ -39,5 +39,3 @@ export function ThemeToggle({ iconSize = 20, className, ...rest }: ThemeTogglePr
     </button>
   )
 }
-
-ThemeToggle.displayName = 'ThemeToggle'
