@@ -3,9 +3,7 @@
 import { useEffect, useState, type ReactNode } from 'react'
 
 const SESSION_KEY = 'splash-shown'
-/** How long the splash stays fully visible before it starts fading out. */
 const VISIBLE_MS = 1500
-/** Must match the `duration-700` fade-out transition below. */
 const FADE_MS = 700
 
 interface SplashScreenProps {
@@ -13,21 +11,21 @@ interface SplashScreenProps {
 }
 
 export function SplashScreen({ children }: SplashScreenProps) {
-  const [showOverlay, setShowOverlay] = useState(false)
+  const [showOverlay, setShowOverlay] = useState(true)
   const [fadingOut, setFadingOut] = useState(false)
 
   useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY)) return
+    if (sessionStorage.getItem(SESSION_KEY)) {
+      const hideFrame = requestAnimationFrame(() => setShowOverlay(false))
+      return () => cancelAnimationFrame(hideFrame)
+    }
 
     sessionStorage.setItem(SESSION_KEY, '1')
-
-    const showFrame = requestAnimationFrame(() => setShowOverlay(true))
 
     const fadeTimer = setTimeout(() => setFadingOut(true), VISIBLE_MS)
     const removeTimer = setTimeout(() => setShowOverlay(false), VISIBLE_MS + FADE_MS)
 
     return () => {
-      cancelAnimationFrame(showFrame)
       clearTimeout(fadeTimer)
       clearTimeout(removeTimer)
     }
