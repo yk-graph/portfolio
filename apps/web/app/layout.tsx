@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Outfit, Fraunces } from 'next/font/google'
+
 import { ThemeProvider } from './components/theme-provider'
 import { SplashScreen } from './components/splash-screen'
-import { PageWrapper } from './components/page-wrapper'
 import './globals.css'
 
 const outfit = Outfit({
@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SplashScreen>
-            <PageWrapper>{children}</PageWrapper>
+            <div className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</div>
           </SplashScreen>
         </ThemeProvider>
       </body>
