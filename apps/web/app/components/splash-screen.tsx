@@ -32,8 +32,8 @@ export function SplashScreen({ children }: SplashScreenProps) {
           if (i < steps.length - 1) setStep(i + 1)
           else setShow(false)
         },
-        STEP_MS * (i + 1),
-      ),
+        STEP_MS * (i + 1)
+      )
     )
 
     return () => timers.forEach(clearTimeout)
