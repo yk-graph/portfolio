@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Set pre-paint by the SplashScreen blocking script for returning visitors,
+   so the splash overlay never flashes on revisit. */
+.splash-dismissed [data-splash-overlay] {
+  display: none;
+}
+
 :root {
   --color-dark-navy: #0f3b59;
   --color-dark-green: #1f580e;
