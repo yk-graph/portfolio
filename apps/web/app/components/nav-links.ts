@@ -1,5 +1,3 @@
-// The primary section links, shared by the top-page Navigation and the
-// sub-page BackNavigation so both stay in sync.
 export const navLinks = [
   { label: 'ABOUT', href: '/about' },
   { label: 'SKILL', href: '/skill' },
