@@ -24,5 +24,3 @@ export function FadeInWrapper({ children, delay = 0, duration = 0.5, ...rest }: 
     </motion.div>
   )
 }
-
-FadeInWrapper.displayName = 'FadeInWrapper'

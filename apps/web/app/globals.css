@@ -1,10 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-/* Scan packages/ui source so Tailwind picks up classes used by shared components. */
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
 
-/* Map Tailwind's `dark:` variant to the `.dark` class set by next-themes. */
 @custom-variant dark (&:where(.dark, .dark *));
+
+.splash-dismissed [data-splash-overlay] {
+  display: none;
+}
 
 :root {
   --color-dark-navy: #0f3b59;

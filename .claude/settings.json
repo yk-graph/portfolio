@@ -6,12 +6,30 @@
       "Bash(pnpm lint)",
       "Bash(pnpm type-check)",
       "Bash(pnpm format:check)",
+      "Bash(pnpm format)",
       "Bash(pnpm build)",
       "Bash(pnpm --filter:*)",
+      "Bash(pnpm approve-builds)",
+      "Bash(turbo:*)",
       "Bash(git status)",
       "Bash(git diff:*)",
-      "Bash(turbo:*)"
+      "Bash(git log:*)",
+      "Bash(git switch:*)",
+      "Bash(git add:*)",
+      "Bash(docker compose -f docker-compose.dev.yml up:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Edit",
+      "Write"
     ],
-    "deny": ["Bash(rm -rf:*)", "Read(./.env)", "Read(./.env.*)"]
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)"
+    ]
   }
 }

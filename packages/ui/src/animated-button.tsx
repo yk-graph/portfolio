@@ -38,5 +38,3 @@ export function AnimatedButton({
     </motion.button>
   )
 }
-
-AnimatedButton.displayName = 'AnimatedButton'

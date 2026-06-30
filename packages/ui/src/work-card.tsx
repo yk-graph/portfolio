@@ -62,5 +62,3 @@ export function WorkCard({
     </article>
   )
 }
-
-WorkCard.displayName = 'WorkCard'
