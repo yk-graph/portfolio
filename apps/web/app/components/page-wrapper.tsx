@@ -7,8 +7,6 @@ interface PageWrapperProps {
   children: ReactNode
 }
 
-// Mount-time fade-in for page content. Children are passed in from a server
-// component and only rendered here, so they stay server components.
 export function PageWrapper({ children }: PageWrapperProps) {
   return (
     <motion.div
