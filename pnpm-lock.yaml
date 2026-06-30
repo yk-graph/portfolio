@@ -156,6 +156,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       motion:
         specifier: 'catalog:'
         version: 12.42.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
