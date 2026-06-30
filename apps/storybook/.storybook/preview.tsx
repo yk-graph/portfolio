@@ -1,4 +1,7 @@
 import type { Preview } from '@storybook/react-vite'
+import { ThemeProvider } from 'next-themes'
+
+import './preview-styles.css'
 
 const preview: Preview = {
   parameters: {
@@ -16,6 +19,15 @@ const preview: Preview = {
       test: 'todo',
     },
   },
+  decorators: [
+    // Make next-themes' useTheme available to every story so theme-aware
+    // components (e.g. ThemeToggle) render correctly.
+    (Story) => (
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
 }
 
 export default preview
