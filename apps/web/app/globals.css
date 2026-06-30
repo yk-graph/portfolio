@@ -4,10 +4,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-.splash-dismissed [data-splash-overlay] {
-  display: none;
-}
-
 :root {
   --color-dark-navy: #0f3b59;
   --color-dark-green: #1f580e;
