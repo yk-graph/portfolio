@@ -1,52 +1,74 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 
-const STORAGE_KEY = 'isSplash'
-const VISIBLE_MS = 1500
-const FADE_MS = 700
+const STORAGE_KEY = 'firstVisit'
+const STEP_MS = 900
 
-const blockingScript = `try{if(sessionStorage.getItem('${STORAGE_KEY}')){document.documentElement.classList.add('splash-dismissed')}}catch(e){}`
+// FirstLoading_01-03: the three welcome lines shown in sequence.
+const steps = ['Welcome', 'to my', 'Portfolio'] as const
 
 interface SplashScreenProps {
   children: ReactNode
 }
 
 export function SplashScreen({ children }: SplashScreenProps) {
-  const [showOverlay, setShowOverlay] = useState(true)
-  const [fadingOut, setFadingOut] = useState(false)
+  // SSG-safe: the server renders no overlay (false), so there is no hydration
+  // mismatch. The first-visit decision happens only in the effect below.
+  const [show, setShow] = useState(false)
+  const [step, setStep] = useState(0)
 
   useEffect(() => {
-    if (sessionStorage.getItem(STORAGE_KEY)) {
-      const hideFrame = requestAnimationFrame(() => setShowOverlay(false))
-      return () => cancelAnimationFrame(hideFrame)
-    }
+    // sessionStorage is read inside the effect only (never during render).
+    if (sessionStorage.getItem(STORAGE_KEY)) return
 
     sessionStorage.setItem(STORAGE_KEY, 'true')
 
-    const fadeTimer = setTimeout(() => setFadingOut(true), VISIBLE_MS)
-    const removeTimer = setTimeout(() => setShowOverlay(false), VISIBLE_MS + FADE_MS)
+    const showFrame = requestAnimationFrame(() => setShow(true))
+    const timers = steps.map((_, i) =>
+      setTimeout(
+        () => {
+          if (i < steps.length - 1) setStep(i + 1)
+          else setShow(false)
+        },
+        STEP_MS * (i + 1),
+      ),
+    )
 
     return () => {
-      clearTimeout(fadeTimer)
-      clearTimeout(removeTimer)
+      cancelAnimationFrame(showFrame)
+      timers.forEach(clearTimeout)
     }
   }, [])
 
   return (
     <>
-      <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: blockingScript }} />
-      {showOverlay && (
-        <div
-          data-splash-overlay
-          aria-hidden="true"
-          className={`fixed inset-0 z-50 flex items-center justify-center bg-loading-bg transition-opacity duration-700 ${
-            fadingOut ? 'pointer-events-none opacity-0' : 'opacity-100'
-          }`}
-        >
-          <span className="font-heading text-3xl font-black tracking-tight text-text-inverse">Portfolio</span>
-        </div>
-      )}
+      <AnimatePresence>
+        {show && (
+          <motion.div
+            key="splash"
+            aria-hidden="true"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-loading-bg"
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={step}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="font-heading text-3xl font-black tracking-tight text-text-inverse"
+              >
+                {steps[step]}
+              </motion.span>
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {children}
     </>
   )
