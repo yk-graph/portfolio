@@ -9,11 +9,21 @@ export function BackNavigation() {
   const pathname = usePathname()
   const router = useRouter()
 
+  // Prefer real browser-back, but fall back to the top page when this is a
+  // fresh entry (direct link / new tab) with no in-app history to return to.
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      router.back()
+    } else {
+      router.push('/')
+    }
+  }
+
   return (
     <nav aria-label="Sub-page" className="flex items-center justify-between gap-8">
       <button
         type="button"
-        onClick={() => router.back()}
+        onClick={handleBack}
         className="cursor-pointer font-heading text-sm font-bold tracking-widest text-text-muted transition-colors hover:text-text-primary"
       >
         ← BACK
