@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Icon, type IconName } from './icon'
+import { Icon, type IconName } from './icons'
 import { navLinks } from './nav-links'
 
 // TODO: replace these dummy URLs with the real accounts once finalized.
