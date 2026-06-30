@@ -1,12 +1,7 @@
 import Link from 'next/link'
 
 import { Icon, type IconName } from './icon'
-
-const navLinks = [
-  { label: 'ABOUT', href: '/about' },
-  { label: 'SKILL', href: '/skill' },
-  { label: 'RESUME', href: '/resume' },
-] as const
+import { navLinks } from './nav-links'
 
 // TODO: replace these dummy URLs with the real accounts once finalized.
 const snsLinks = [
