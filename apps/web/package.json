@@ -10,11 +10,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "lucide-react": "catalog:",
     "next": "16.2.9",
     "next-themes": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-icons": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
