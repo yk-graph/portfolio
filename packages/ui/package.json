@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "lucide-react": "catalog:",
-    "motion": "^12.42.0",
+    "motion": "catalog:",
     "next-themes": "catalog:",
     "react": "catalog:"
   },
