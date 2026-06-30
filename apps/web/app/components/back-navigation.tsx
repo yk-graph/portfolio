@@ -1,27 +1,23 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { navLinks } from './nav-links'
 
-interface BackNavigationProps {
-  // Where the BACK link points. Defaults to the top page; note-detail pages
-  // can override it (e.g. back to the notes list).
-  backHref?: string
-}
-
-export function BackNavigation({ backHref = '/' }: BackNavigationProps) {
+export function BackNavigation() {
   const pathname = usePathname()
+  const router = useRouter()
 
   return (
     <nav aria-label="Sub-page" className="flex items-center justify-between gap-8">
-      <Link
-        href={backHref}
-        className="font-heading text-sm font-bold tracking-widest text-text-muted transition-colors hover:text-text-primary"
+      <button
+        type="button"
+        onClick={() => router.back()}
+        className="cursor-pointer font-heading text-sm font-bold tracking-widest text-text-muted transition-colors hover:text-text-primary"
       >
         ← BACK
-      </Link>
+      </button>
 
       <ul className="flex items-center gap-8">
         {navLinks.map(({ label, href }) => {
