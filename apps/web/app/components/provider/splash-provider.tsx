@@ -10,11 +10,11 @@ const steps = ['Welcome', 'to my', 'Portfolio'] as const
 
 const blockingScript = `try{if(sessionStorage.getItem('${STORAGE_KEY}')){document.documentElement.classList.add('splash-dismissed')}}catch(e){}`
 
-interface SplashScreenProps {
+interface SplashProviderProps {
   children: ReactNode
 }
 
-export function SplashScreen({ children }: SplashScreenProps) {
+export function SplashProvider({ children }: SplashProviderProps) {
   const [show, setShow] = useState(true)
   const [step, setStep] = useState(0)
 

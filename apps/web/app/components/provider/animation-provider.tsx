@@ -3,11 +3,11 @@
 import { type ReactNode } from 'react'
 import { motion } from 'motion/react'
 
-interface PageWrapperProps {
+interface AnimationProviderProps {
   children: ReactNode
 }
 
-export function PageWrapper({ children }: PageWrapperProps) {
+export function AnimationProvider({ children }: AnimationProviderProps) {
   return (
     <motion.div animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
       {children}
