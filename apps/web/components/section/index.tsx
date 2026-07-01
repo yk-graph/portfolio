@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { SectionNav } from '@/components/common'
-import { sections, type SectionId } from '@/constants/sections'
+import { sections, type SectionId } from '@/constants'
 import { HomeSection } from './home-section'
 import { WorksSection } from './works-section'
 import { NotesSection } from './notes-section'
