@@ -1,2 +1,2 @@
 export * from './common'
-export * from './section-pager'
+export * from './section'
