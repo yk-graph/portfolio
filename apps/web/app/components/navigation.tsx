@@ -17,7 +17,7 @@ export function Navigation() {
           <li key={label}>
             <Link
               href={href}
-              className="font-heading text-sm font-bold tracking-widest text-text-primary transition-opacity hover:opacity-60"
+              className="font-heading text-sm font-bold tracking-widest text-foreground transition-opacity hover:opacity-60"
             >
               {label}
             </Link>
@@ -33,7 +33,7 @@ export function Navigation() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="inline-flex text-text-muted transition-colors hover:text-text-primary"
+              className="inline-flex text-neutral-600 transition-colors hover:text-foreground dark:text-neutral-400"
             >
               <Icon name={icon} size={20} />
             </a>
@@ -41,7 +41,7 @@ export function Navigation() {
         ))}
       </ul>
 
-      <span aria-hidden="true" className="block h-16 w-px bg-text-muted/40" />
+      <span aria-hidden="true" className="block h-16 w-px bg-neutral-400/40" />
     </nav>
   )
 }
