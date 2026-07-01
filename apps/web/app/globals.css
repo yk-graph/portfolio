@@ -9,17 +9,17 @@
 }
 
 :root {
-  --color-navy: #0f3b59;
-  --color-olive: #7b790c;
-  --color-forest: #1f580e;
-  --color-amber: #332f03;
+  --color-brand-navy: #0f3b59;
+  --color-brand-olive: #7b790c;
+  --color-brand-forest: #1f580e;
+  --color-brand-amber: #332f03;
 
   --background: #ffffff;
   --foreground: #171717;
 }
 
 .dark {
-  --background: var(--color-navy);
+  --background: var(--color-brand-navy);
   --foreground: #d9d9d9;
 }
 
@@ -27,10 +27,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --color-navy: var(--color-navy);
-  --color-olive: var(--color-olive);
-  --color-forest: var(--color-forest);
-  --color-amber: var(--color-amber);
+  --color-brand-navy: var(--color-brand-navy);
+  --color-brand-olive: var(--color-brand-olive);
+  --color-brand-forest: var(--color-brand-forest);
+  --color-brand-amber: var(--color-brand-amber);
 
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;

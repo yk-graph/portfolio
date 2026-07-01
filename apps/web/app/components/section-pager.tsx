@@ -6,10 +6,10 @@ import { AnimatePresence, motion } from 'motion/react'
 type SectionId = 'home' | 'works' | 'notes' | 'contact'
 
 const sections: { id: SectionId; label: string; bg: string }[] = [
-  { id: 'home', label: 'Home', bg: 'var(--color-navy)' },
-  { id: 'works', label: 'Works', bg: 'var(--color-amber)' },
-  { id: 'notes', label: 'Notes', bg: 'var(--color-forest)' },
-  { id: 'contact', label: 'Contact', bg: 'var(--color-olive)' },
+  { id: 'home', label: 'Home', bg: 'var(--color-brand-navy)' },
+  { id: 'works', label: 'Works', bg: 'var(--color-brand-amber)' },
+  { id: 'notes', label: 'Notes', bg: 'var(--color-brand-forest)' },
+  { id: 'contact', label: 'Contact', bg: 'var(--color-brand-olive)' },
 ]
 
 const SWIPE_THRESHOLD = 80
