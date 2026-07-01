@@ -1,4 +1,4 @@
-import { SectionPager } from './components/section-pager'
+import { SectionPager } from '@/components'
 
 export default function Home() {
   return <SectionPager />

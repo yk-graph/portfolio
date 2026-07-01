@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
-import { BackNavigation } from '../components/back-navigation'
-import { Icon, type IconName } from '../components/icons'
+import { BackNavigation, Icon, type IconName } from '@/components'
 
 export const metadata: Metadata = {
   title: 'About',

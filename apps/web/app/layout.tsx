@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, Fraunces } from 'next/font/google'
 
-import { ThemeProvider } from './components/provider/theme-provider'
-import { SplashProvider } from './components/provider/splash-provider'
+import { ThemeProvider, SplashProvider } from '@/components/provider'
 import './globals.css'
 
 const outfit = Outfit({
