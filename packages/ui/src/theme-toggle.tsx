@@ -14,8 +14,6 @@ const baseClasses =
 
 export function ThemeToggle({ iconSize = 20, className, ...rest }: ThemeToggleProps) {
   const { resolvedTheme, setTheme } = useTheme()
-  // Avoid hydration mismatch: next-themes resolves the theme on the client only,
-  // so we render a neutral placeholder until mount.
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
