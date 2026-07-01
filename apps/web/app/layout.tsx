@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, Fraunces } from 'next/font/google'
 
-import { ThemeProvider } from './components/theme-provider'
-import { SplashScreen } from './components/splash-screen'
+import { ThemeProvider, SplashProvider } from '@/components/provider'
 import './globals.css'
 
 const outfit = Outfit({
@@ -36,9 +35,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${outfit.variable} ${fraunces.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SplashScreen>
+          <SplashProvider>
             <div className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</div>
-          </SplashScreen>
+          </SplashProvider>
         </ThemeProvider>
       </body>
     </html>

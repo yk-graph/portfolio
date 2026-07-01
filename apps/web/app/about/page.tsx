@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
-import { BackNavigation } from '../components/back-navigation'
-import { Icon, type IconName } from '../components/icons'
+import { BackNavigation, Icon, type IconName } from '@/components'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -31,7 +30,7 @@ export default function AboutPage() {
 
         <h1 className="font-heading text-4xl font-black leading-tight sm:text-5xl">Hello, I&apos;m Tatsuya</h1>
 
-        <p className="max-w-xl text-base leading-relaxed text-text-muted">
+        <p className="max-w-xl text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
           A software developer focused on front-end architecture and clean, accessible UI.
         </p>
 
@@ -43,7 +42,7 @@ export default function AboutPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="inline-flex text-text-muted transition-colors hover:text-text-primary"
+                className="inline-flex text-neutral-600 transition-colors hover:text-foreground dark:text-neutral-400"
               >
                 <Icon name={icon} size={22} />
               </a>
