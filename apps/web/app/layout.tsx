@@ -35,9 +35,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${outfit.variable} ${fraunces.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SplashProvider>
-            <div className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</div>
-          </SplashProvider>
+          <SplashProvider>{children}</SplashProvider>
         </ThemeProvider>
       </body>
     </html>

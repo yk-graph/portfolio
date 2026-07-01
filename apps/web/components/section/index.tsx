@@ -66,7 +66,7 @@ export function SectionPager() {
             if (info.offset.x < -SWIPE_THRESHOLD) go(index + 1)
             else if (info.offset.x > SWIPE_THRESHOLD) go(index - 1)
           }}
-          className="absolute inset-0 flex cursor-grab flex-col items-center justify-center px-6 active:cursor-grabbing"
+          className="absolute inset-0 flex cursor-grab flex-col items-center justify-center active:cursor-grabbing"
         >
           {sectionContent[active.id]}
         </motion.section>
