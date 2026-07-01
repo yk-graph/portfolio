@@ -41,7 +41,7 @@ export function SectionPager() {
 
   return (
     <motion.div
-      className="fixed inset-0 overflow-hidden text-white"
+      className="fixed inset-0 overflow-hidden bg-brand-navy text-white"
       animate={{ backgroundColor: active.bg }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
