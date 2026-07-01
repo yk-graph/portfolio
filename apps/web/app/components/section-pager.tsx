@@ -6,10 +6,10 @@ import { AnimatePresence, motion } from 'motion/react'
 type SectionId = 'home' | 'works' | 'notes' | 'contact'
 
 const sections: { id: SectionId; label: string; bg: string }[] = [
-  { id: 'home', label: 'Home', bg: 'var(--color-dark-navy)' },
-  { id: 'works', label: 'Works', bg: 'var(--color-dark-olive)' },
-  { id: 'notes', label: 'Notes', bg: 'var(--color-dark-green)' },
-  { id: 'contact', label: 'Contact', bg: 'var(--color-olive-green)' },
+  { id: 'home', label: 'Home', bg: 'var(--color-navy)' },
+  { id: 'works', label: 'Works', bg: 'var(--color-amber)' },
+  { id: 'notes', label: 'Notes', bg: 'var(--color-forest)' },
+  { id: 'contact', label: 'Contact', bg: 'var(--color-olive)' },
 ]
 
 const SWIPE_THRESHOLD = 80
@@ -41,7 +41,7 @@ export function SectionPager() {
 
   return (
     <motion.div
-      className="fixed inset-0 overflow-hidden text-text-inverse"
+      className="fixed inset-0 overflow-hidden text-white"
       animate={{ backgroundColor: active.bg }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
@@ -76,7 +76,7 @@ export function SectionPager() {
             aria-label={section.label}
             aria-current={i === index ? 'true' : undefined}
             className={`h-2 rounded-full transition-all ${
-              i === index ? 'w-6 bg-text-inverse' : 'w-2 bg-text-inverse/40 hover:bg-text-inverse/70'
+              i === index ? 'w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'
             }`}
           />
         ))}
@@ -90,12 +90,12 @@ function SectionContent({ id }: { id: SectionId }) {
     return (
       <div className="flex h-full w-full max-w-5xl flex-col py-12">
         <div className="flex flex-1 flex-col justify-center gap-6">
-          <p className="font-heading text-sm font-bold uppercase tracking-[0.3em] text-text-inverse/70">Portfolio</p>
+          <p className="font-heading text-sm font-bold uppercase tracking-[0.3em] text-white/70">Portfolio</p>
           <h1 className="font-heading text-4xl font-black leading-tight sm:text-6xl">
             I&apos;m a<br />
             Software Developer
           </h1>
-          <p className="max-w-xl text-base leading-relaxed text-text-inverse/80">
+          <p className="max-w-xl text-base leading-relaxed text-white/80">
             Building web products with a focus on clear UI and maintainable front-end architecture.
           </p>
         </div>
@@ -111,7 +111,7 @@ function SectionContent({ id }: { id: SectionId }) {
           <select
             aria-label="Subject"
             defaultValue=""
-            className="rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm text-text-inverse"
+            className="rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm text-white"
           >
             <option value="" disabled>
               Select a subject
@@ -124,17 +124,17 @@ function SectionContent({ id }: { id: SectionId }) {
             type="email"
             aria-label="Email"
             placeholder="you@example.com"
-            className="rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm text-text-inverse placeholder:text-text-inverse/50"
+            className="rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm text-white placeholder:text-white/50"
           />
           <textarea
             aria-label="Message"
             rows={3}
             placeholder="Write your message..."
-            className="resize-none rounded-xl border border-white/30 bg-white/10 px-4 py-3 text-sm text-text-inverse placeholder:text-text-inverse/50"
+            className="resize-none rounded-xl border border-white/30 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50"
           />
           <button
             type="submit"
-            className="rounded-full bg-text-inverse px-6 py-3 text-sm font-semibold text-text-primary transition-opacity hover:opacity-90"
+            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-900 transition-opacity hover:opacity-90"
           >
             Send
           </button>
