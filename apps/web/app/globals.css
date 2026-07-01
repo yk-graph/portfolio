@@ -9,42 +9,28 @@
 }
 
 :root {
-  --color-dark-navy: #0f3b59;
-  --color-dark-green: #1f580e;
-  --color-olive-green: #7b790c;
-  --color-dark-olive: #332f03;
-  --color-loading-bg: #232628;
-
-  --color-text-primary: #232628;
-  --color-text-inverse: #ffffff;
-  --color-text-muted: #4a4a4a;
+  --color-navy: #0f3b59;
+  --color-olive: #7b790c;
+  --color-forest: #1f580e;
+  --color-amber: #332f03;
 
   --background: #ffffff;
-  --foreground: var(--color-text-primary);
+  --foreground: #171717;
 }
 
 .dark {
-  --color-text-primary: #d9d9d9;
-  --color-text-inverse: #ffffff;
-  --color-text-muted: #9a9a9a;
-
-  --background: var(--color-dark-navy);
-  --foreground: var(--color-text-primary);
+  --background: var(--color-navy);
+  --foreground: #d9d9d9;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --color-dark-navy: var(--color-dark-navy);
-  --color-dark-green: var(--color-dark-green);
-  --color-olive-green: var(--color-olive-green);
-  --color-dark-olive: var(--color-dark-olive);
-  --color-loading-bg: var(--color-loading-bg);
-
-  --color-text-primary: var(--color-text-primary);
-  --color-text-inverse: var(--color-text-inverse);
-  --color-text-muted: var(--color-text-muted);
+  --color-navy: var(--color-navy);
+  --color-olive: var(--color-olive);
+  --color-forest: var(--color-forest);
+  --color-amber: var(--color-amber);
 
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
