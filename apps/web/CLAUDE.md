@@ -9,5 +9,8 @@ This file holds only conventions you can't read from a file.
 - Never call the external CMS (Notion) directly from a component.
   Go through the data layer in `lib/` (see docs/architecture.md §4).
 - Follow the official Next.js ESLint config as-is; don't override it.
+- Colors: the 4 base colors (navy/olive/forest/amber) are custom tokens in
+  globals.css, each used for both background and text. Grays, black and white
+  use Tailwind neutrals — don't add custom tokens for them.
 
 (All code and comments in English.)
