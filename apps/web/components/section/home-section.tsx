@@ -19,6 +19,7 @@ export function HomeSection() {
     <div className="@container flex h-full w-full flex-col justify-between py-16">
       <div className="flex flex-col items-end gap-10 text-right">
         <h1 className="w-full font-heading font-black leading-[0.95]">
+          {/* mobile */}
           <span className="block text-[clamp(2.5rem,18cqi,5.5rem)] sm:hidden">
             I&apos;m a
             <br />
@@ -26,6 +27,7 @@ export function HomeSection() {
             <br />
             Developer
           </span>
+          {/* tablet and laptop */}
           <span className="hidden w-full overflow-hidden sm:flex">
             <span className="flex w-max animate-marquee whitespace-nowrap text-left text-[clamp(6rem,15vw,10rem)] leading-none motion-reduce:animate-none">
               <span className="pr-[0.3em]">I&apos;m a Software Developer</span>
@@ -66,7 +68,7 @@ export function HomeSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white/10"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white/10"
               >
                 <Icon name={icon} size={18} />
               </a>
