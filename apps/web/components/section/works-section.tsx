@@ -57,7 +57,7 @@ export function WorksSection() {
       go(Math.round(wheelAccum.current))
       setDrag(0)
       wheelAccum.current = 0
-    }, 120)
+    }, 100)
   }
 
   return (
