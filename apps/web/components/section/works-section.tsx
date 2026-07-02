@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { motion } from 'motion/react'
 
 const tags = ['NextJS', 'React', 'Figma', 'TypeScript', 'NodeJS', 'Prisma', 'Docker']
 
@@ -26,6 +25,7 @@ function sizeAt(abs: number, sizes: number[]) {
 export function WorksSection() {
   const [active, setActive] = useState(0)
   const [drag, setDrag] = useState(0)
+  const [smooth, setSmooth] = useState(false)
   const [tier, setTier] = useState<'mobile' | 'tablet' | 'laptop'>('mobile')
 
   useEffect(() => {
@@ -50,14 +50,15 @@ export function WorksSection() {
   const wheelTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   const handleWheel = (e: React.WheelEvent) => {
-    wheelAccum.current += e.deltaY / 300
+    setSmooth(true)
+    wheelAccum.current += e.deltaY / 400
     setDrag(wheelAccum.current)
     if (wheelTimer.current) clearTimeout(wheelTimer.current)
     wheelTimer.current = setTimeout(() => {
       go(Math.round(wheelAccum.current))
       setDrag(0)
       wheelAccum.current = 0
-    }, 100)
+    }, 150)
   }
 
   return (
@@ -97,7 +98,7 @@ export function WorksSection() {
         </div>
       </div>
 
-      <div className="relative shrink-0" style={{ width: cfg.area }}>
+      <div className="relative shrink-0" style={{ width: cfg.area }} onWheel={handleWheel}>
         {cards.map((src, i) => {
           let offset = i - active - drag
           offset = ((offset % N) + N) % N
@@ -109,13 +110,18 @@ export function WorksSection() {
           return (
             <div
               key={src}
-              className="absolute top-1/2 left-0 overflow-hidden rounded-2xl"
+              className="absolute top-1/2 left-0 cursor-pointer overflow-hidden rounded-2xl"
+              onClick={() => {
+                setSmooth(true)
+                setActive(i)
+              }}
               style={{
                 width: height * cfg.ratio,
                 height,
                 transform: `translate(${abs * cfg.xStep}px, calc(-50% + ${y}px))`,
                 opacity,
                 zIndex: Math.round(100 - abs * 10),
+                transition: smooth ? 'transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.5s' : undefined,
               }}
             >
               <Image
@@ -124,22 +130,14 @@ export function WorksSection() {
                 fill
                 sizes="640px"
                 className="object-cover"
-                style={{ filter: `grayscale(${Math.min(1, abs)})` }}
+                style={{
+                  filter: `grayscale(${Math.min(1, abs)})`,
+                  transition: smooth ? 'filter 0.5s' : undefined,
+                }}
               />
             </div>
           )
         })}
-
-        <motion.div
-          className="absolute inset-0 z-200 touch-none"
-          onWheel={handleWheel}
-          onPan={(_, info) => setDrag(-info.offset.y / 120)}
-          onPanEnd={(_, info) => {
-            setDrag(0)
-            if (info.offset.y <= -50) go(1)
-            else if (info.offset.y >= 50) go(-1)
-          }}
-        />
       </div>
     </div>
   )
