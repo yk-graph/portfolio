@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'motion/react'
 
@@ -45,6 +45,20 @@ export function WorksSection() {
   const maxOffset = cfg.sizes.length - 1
 
   const go = (delta: number) => setActive((a) => (a + delta + N) % N)
+
+  const wheelAccum = useRef(0)
+  const wheelTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+
+  const handleWheel = (e: React.WheelEvent) => {
+    wheelAccum.current += e.deltaY / 300
+    setDrag(wheelAccum.current)
+    if (wheelTimer.current) clearTimeout(wheelTimer.current)
+    wheelTimer.current = setTimeout(() => {
+      go(Math.round(wheelAccum.current))
+      setDrag(0)
+      wheelAccum.current = 0
+    }, 120)
+  }
 
   return (
     <div className="relative flex h-full w-full gap-10 overflow-hidden">
@@ -117,7 +131,8 @@ export function WorksSection() {
         })}
 
         <motion.div
-          className="absolute inset-0 z-200 cursor-grab touch-none active:cursor-grabbing"
+          className="absolute inset-0 z-200 touch-none"
+          onWheel={handleWheel}
           onPan={(_, info) => setDrag(-info.offset.y / 120)}
           onPanEnd={(_, info) => {
             setDrag(0)
