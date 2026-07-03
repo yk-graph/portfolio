@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react'
 import Image from 'next/image'
 
 import type { Work } from '@/lib'
@@ -16,11 +16,11 @@ function sizeAt(abs: number, sizes: number[]) {
   return sizes[i] + (sizes[i + 1] - sizes[i]) * (abs - i)
 }
 
-export function WorksContent({ works }: { works: Work[] }) {
-  const items = works.filter((w) => w.thumbnail)
-  const N = items.length
+type Props = { works: Work[]; active: number; onActive: Dispatch<SetStateAction<number>> }
 
-  const [active, setActive] = useState(0)
+export function WorksCarousel({ works, active, onActive }: Props) {
+  const N = works.length
+
   const [drag, setDrag] = useState(0)
   const [smooth, setSmooth] = useState(false)
   const [tier, setTier] = useState<'mobile' | 'tablet' | 'laptop'>('mobile')
@@ -41,8 +41,6 @@ export function WorksContent({ works }: { works: Work[] }) {
   const cfg = tier === 'laptop' ? LAPTOP : tier === 'tablet' ? TABLET : MOBILE
   const maxOffset = cfg.sizes.length - 1
 
-  const go = (delta: number) => setActive((a) => (a + delta + N) % N)
-
   const wheelAccum = useRef(0)
   const wheelTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
@@ -52,7 +50,8 @@ export function WorksContent({ works }: { works: Work[] }) {
     setDrag(wheelAccum.current)
     if (wheelTimer.current) clearTimeout(wheelTimer.current)
     wheelTimer.current = setTimeout(() => {
-      go(Math.round(wheelAccum.current))
+      const step = Math.round(wheelAccum.current)
+      if (step) onActive((a) => (a + step + N) % N)
       setDrag(0)
       wheelAccum.current = 0
     }, 150)
@@ -61,8 +60,8 @@ export function WorksContent({ works }: { works: Work[] }) {
   if (N === 0) return null
 
   return (
-    <div className="relative shrink-0" style={{ width: cfg.area }} onWheel={handleWheel}>
-      {items.map((work, i) => {
+    <div className="absolute top-0 right-0 h-full" style={{ width: cfg.area }} onWheel={handleWheel}>
+      {works.map((work, i) => {
         let offset = i - active - drag
         offset = ((offset % N) + N) % N
         if (offset > N / 2) offset -= N
@@ -76,7 +75,7 @@ export function WorksContent({ works }: { works: Work[] }) {
             className="absolute top-1/2 left-0 cursor-pointer overflow-hidden rounded-2xl"
             onClick={() => {
               setSmooth(true)
-              setActive(i)
+              onActive(i)
             }}
             style={{
               width: height * cfg.ratio,
