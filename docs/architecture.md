@@ -28,13 +28,13 @@ Each page = one row. When you add a page, add a row here BEFORE implementing.
 
 ## 3. Directory responsibilities (decided)
 
-| Path                    | Responsibility                                                    |
-| ----------------------- | ----------------------------------------------------------------- |
-| `apps/web/app/`         | Route segments ONLY (App Router). No non-route code here.         |
-| `apps/web/components/`  | Site-specific composite UI (Hero, ProjectCard). NOT generic.      |
-| `apps/web/constants/`   | Static app data/config (e.g. section definitions).                |
-| `apps/web/lib/`         | App logic: data fetching, the Notion data layer, helpers.         |
-| `packages/ui/`          | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
+| Path                   | Responsibility                                                    |
+| ---------------------- | ----------------------------------------------------------------- |
+| `apps/web/app/`        | Route segments ONLY (App Router). No non-route code here.         |
+| `apps/web/components/` | Site-specific composite UI (Hero, ProjectCard). NOT generic.      |
+| `apps/web/constants/`  | Static app data/config (e.g. section definitions).                |
+| `apps/web/lib/`        | App logic: data fetching, the Notion data layer, helpers.         |
+| `packages/ui/`         | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
 
 Non-route code (components, constants, lib) lives at the `apps/web` root, not
 under `app/`, so route segments stay clearly separated from shared code. It is

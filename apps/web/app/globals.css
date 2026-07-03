@@ -8,12 +8,22 @@
   display: none;
 }
 
-:root {
+@theme {
   --color-brand-navy: #0f3b59;
   --color-brand-olive: #7b790c;
   --color-brand-forest: #1f580e;
   --color-brand-amber: #332f03;
 
+  --animate-marquee: marquee 50s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+:root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -26,11 +36,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  --color-brand-navy: var(--color-brand-navy);
-  --color-brand-olive: var(--color-brand-olive);
-  --color-brand-forest: var(--color-brand-forest);
-  --color-brand-amber: var(--color-brand-amber);
 
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
