@@ -3,9 +3,14 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      args:
+        NOTION_TOKEN: ${NOTION_TOKEN}
+        NOTION_DATA_SOURCE_ID: ${NOTION_DATA_SOURCE_ID}
     container_name: portfolio-web-prod
     ports:
       - '4000:4000'
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
     restart: unless-stopped
