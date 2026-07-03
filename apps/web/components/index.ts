@@ -1,2 +1,6 @@
 export * from './common'
 export * from './section'
+export { HomeSection } from './section/home-section'
+export { WorksSection } from './section/works-section'
+export { NotesSection } from './section/notes-section'
+export { ContactSection } from './section/contact-section'

@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(process.cwd(), '../../'),
   transpilePackages: ['@repo/ui'],
   images: {
-    remotePatterns: [{ protocol: 'https', hostname: 'picsum.photos' }],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+    ],
   },
 }
 

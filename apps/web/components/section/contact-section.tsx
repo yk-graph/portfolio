@@ -1,3 +1,5 @@
+'use client'
+
 export function ContactSection() {
   return (
     <div className="flex w-full max-w-md flex-col gap-5">

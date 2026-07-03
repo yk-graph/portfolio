@@ -5,10 +5,6 @@ import { AnimatePresence, motion } from 'motion/react'
 
 import { SectionNav } from '@/components/common'
 import { sections, type SectionId } from '@/constants'
-import { HomeSection } from './home-section'
-import { WorksSection } from './works-section'
-import { NotesSection } from './notes-section'
-import { ContactSection } from './contact-section'
 
 const SWIPE_THRESHOLD = 80
 
@@ -18,14 +14,7 @@ const slideVariants = {
   exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 }),
 }
 
-const sectionContent: Record<SectionId, ReactNode> = {
-  home: <HomeSection />,
-  works: <WorksSection />,
-  notes: <NotesSection />,
-  contact: <ContactSection />,
-}
-
-export function SectionPager() {
+export function SectionPager({ content }: { content: Record<SectionId, ReactNode> }) {
   const [[index, direction], setState] = useState<[number, number]>([0, 0])
 
   const go = (next: number) => {
@@ -68,7 +57,7 @@ export function SectionPager() {
           }}
           className="absolute inset-0 flex cursor-grab flex-col items-center justify-center active:cursor-grabbing"
         >
-          {sectionContent[active.id]}
+          {content[active.id]}
         </motion.section>
       </AnimatePresence>
 
