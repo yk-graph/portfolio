@@ -13,7 +13,7 @@ export async function getWorks(): Promise<Work[]> {
 
     const workPages = response.results.filter(isFullPage)
     return workPages.map((page) => mapPageToWork(page))
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof APIResponseError) {
       console.error('getWorks: Notion API error', { status: error.status, code: error.code })
     } else if (isNotionClientError(error)) {
