@@ -1,15 +1,18 @@
 import { Client } from '@notionhq/client'
 
-if (!process.env.NOTION_TOKEN) {
-  throw new Error('NOTION_TOKEN is not set.')
-}
-if (!process.env.NOTION_DATA_SOURCE_ID) {
-  throw new Error('NOTION_DATA_SOURCE_ID is not set.')
+let client: Client | undefined
+
+export function getNotionClient(): Client {
+  if (!client) {
+    const token = process.env.NOTION_TOKEN
+    if (!token) throw new Error('NOTION_TOKEN is not set.')
+    client = new Client({ auth: token, notionVersion: '2026-03-11' })
+  }
+  return client
 }
 
-export const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-  notionVersion: '2026-03-11',
-})
-
-export const DATA_SOURCE_ID = process.env.NOTION_DATA_SOURCE_ID
+export function getDataSourceId(): string {
+  const id = process.env.NOTION_DATA_SOURCE_ID
+  if (!id) throw new Error('NOTION_DATA_SOURCE_ID is not set.')
+  return id
+}
