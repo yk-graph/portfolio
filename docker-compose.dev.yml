@@ -6,6 +6,8 @@ services:
     container_name: portfolio-web-dev
     ports:
       - '4000:4000'
+    env_file:
+      - .env
     environment:
       - CI=true
     volumes:

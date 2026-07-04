@@ -15,6 +15,10 @@ RUN pnpm install --frozen-lockfile
 # ===== Builder =====
 FROM base AS builder
 WORKDIR /app
+ARG NOTION_TOKEN
+ARG NOTION_DATA_SOURCE_ID
+ENV NOTION_TOKEN=$NOTION_TOKEN
+ENV NOTION_DATA_SOURCE_ID=$NOTION_DATA_SOURCE_ID
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm --filter web build

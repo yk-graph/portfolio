@@ -22,7 +22,7 @@ export function BackNavigation() {
       <button
         type="button"
         onClick={handleBack}
-        className="cursor-pointer font-heading text-sm font-bold tracking-widest text-text-muted transition-colors hover:text-text-primary"
+        className="cursor-pointer font-heading text-sm font-bold tracking-widest text-neutral-600 transition-colors hover:text-foreground dark:text-neutral-400"
       >
         ← BACK
       </button>
@@ -36,7 +36,7 @@ export function BackNavigation() {
                 href={href}
                 aria-current={isActive ? 'page' : undefined}
                 className={`font-heading text-sm font-bold tracking-widest transition-opacity hover:opacity-60 ${
-                  isActive ? 'text-text-primary underline underline-offset-8' : 'text-text-muted'
+                  isActive ? 'text-foreground underline underline-offset-8' : 'text-neutral-600 dark:text-neutral-400'
                 }`}
               >
                 {label}

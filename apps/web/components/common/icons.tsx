@@ -1,10 +1,11 @@
 import type { IconBaseProps, IconType } from 'react-icons'
-import { FaGithub, FaLinkedin, FaRegCalendar } from 'react-icons/fa6'
+import { FaGithub, FaLink, FaLinkedin, FaRegCalendar } from 'react-icons/fa6'
 
 const iconRegistry = {
   calendar: FaRegCalendar,
   github: FaGithub,
   linkedin: FaLinkedin,
+  link: FaLink,
 } satisfies Record<string, IconType>
 
 export type IconName = keyof typeof iconRegistry

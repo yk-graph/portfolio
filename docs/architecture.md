@@ -17,26 +17,27 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route | Page | Rendering | Data source | Status |
-| ----- | ---- | --------- | ----------- | ------ |
-| `/`   | Home | TBD       | TBD         | TBD    |
-
-<!-- Example of a filled row (remove once real pages exist):
-| `/work` | Work list | SSG | Notion (projects DB) | planned |
-| `/work/[slug]` | Work detail | ISR | Notion (projects DB) | planned |
--->
+| Route    | Page                                      | Rendering | Data source                           | Status                            |
+| -------- | ----------------------------------------- | --------- | ------------------------------------- | --------------------------------- |
+| `/`      | Home (swipeable Home/Works/Notes/Contact) | SSG       | Notion works data source (Works only) | implemented; ISR revalidation TBD |
+| `/about` | About                                     | SSG       | — (static)                            | implemented                       |
 
 ## 3. Directory responsibilities (decided)
 
-| Path                       | Responsibility                                                    |
-| -------------------------- | ----------------------------------------------------------------- |
-| `apps/web/app/`            | Routes (App Router). One folder per route segment.                |
-| `apps/web/app/components/` | Site-specific composite UI (Hero, ProjectCard). NOT generic.      |
-| `apps/web/lib/`            | App logic: data fetching, the Notion data layer, helpers.         |
-| `packages/ui/`             | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
+| Path                   | Responsibility                                                    |
+| ---------------------- | ----------------------------------------------------------------- |
+| `apps/web/app/`        | Route segments ONLY (App Router). No non-route code here.         |
+| `apps/web/components/` | Site-specific composite UI (Hero, ProjectCard). NOT generic.      |
+| `apps/web/constants/`  | Static app data/config (e.g. section definitions).                |
+| `apps/web/lib/`        | App logic: data fetching, the Notion data layer, helpers.         |
+| `packages/ui/`         | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
+
+Non-route code (components, constants, lib) lives at the `apps/web` root, not
+under `app/`, so route segments stay clearly separated from shared code. It is
+imported via the `@/*` alias.
 
 Boundary rule: if a component is reusable across projects → `packages/ui`.
-If it is specific to this site → `apps/web/app/components/`.
+If it is specific to this site → `apps/web/components/`.
 
 ## 4. Data flow (decided)
 
@@ -65,12 +66,14 @@ Internal types are the contract; the Notion mapping is an implementation detail.
 
 ## 5. Content / data model
 
-The shape of internal types (Project, Note, etc.) is TBD.
-When defined, document the types here (or split into `docs/data-model.md`
-if this section grows large) and reference them from the data layer.
+The `Work` type is the internal model for a portfolio work, defined in
+`apps/web/lib/notion/types.ts` and returned by the data layer (`getWorks`).
+It is the contract components render — raw Notion shapes never leak out.
+Note/Contact models are still TBD. (If this section grows, split into
+`docs/data-model.md`.)
 
 ## 6. Open decisions (TBD — fill in as decided)
 
 - Page structure (which pages exist): TBD
-- Internal type definitions: TBD
+- Internal type definitions: `Work` defined; Note/Contact TBD
 - ISR revalidation interval for Notion content: TBD

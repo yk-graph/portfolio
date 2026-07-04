@@ -3,11 +3,11 @@
 import { type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 
-interface PageWrapperProps {
+interface AnimationProviderProps {
   children: ReactNode
 }
 
-export function PageWrapper({ children }: PageWrapperProps) {
+export function AnimationProvider({ children }: AnimationProviderProps) {
   const shouldReduceMotion = useReducedMotion()
 
   return (

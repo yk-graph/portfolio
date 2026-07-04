@@ -10,11 +10,11 @@ const steps = ['Welcome', 'to my', 'Portfolio'] as const
 
 const blockingScript = `try{if(sessionStorage.getItem('${STORAGE_KEY}')){document.documentElement.classList.add('splash-dismissed')}}catch(e){}`
 
-interface SplashScreenProps {
+interface SplashProviderProps {
   children: ReactNode
 }
 
-export function SplashScreen({ children }: SplashScreenProps) {
+export function SplashProvider({ children }: SplashProviderProps) {
   const [show, setShow] = useState(true)
   const [step, setStep] = useState(0)
 
@@ -51,7 +51,7 @@ export function SplashScreen({ children }: SplashScreenProps) {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-loading-bg"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-800"
           >
             <AnimatePresence mode="wait">
               <motion.span
@@ -60,7 +60,7 @@ export function SplashScreen({ children }: SplashScreenProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="font-heading text-3xl font-black tracking-tight text-text-inverse"
+                className="font-heading text-3xl font-black tracking-tight text-white"
               >
                 {steps[step]}
               </motion.span>
