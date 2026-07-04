@@ -14,7 +14,7 @@ export function WorksGallery({ works }: { works: Work[] }) {
   return (
     <>
       {items[active] ? (
-        <WorksDetail work={items[active]} />
+        <WorksDetail key={items[active].id} work={items[active]} />
       ) : (
         <p className="flex flex-1 items-center text-white/70">No works yet.</p>
       )}
