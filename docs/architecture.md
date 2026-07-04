@@ -17,10 +17,10 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route    | Page                                        | Rendering | Data source                            | Status                            |
-| -------- | ------------------------------------------- | --------- | -------------------------------------- | --------------------------------- |
-| `/`      | Home (swipeable Home/Works/Notes/Contact)   | SSG       | Notion works data source (Works only)  | implemented; ISR revalidation TBD |
-| `/about` | About                                       | SSG       | — (static)                             | implemented                       |
+| Route    | Page                                      | Rendering | Data source                           | Status                            |
+| -------- | ----------------------------------------- | --------- | ------------------------------------- | --------------------------------- |
+| `/`      | Home (swipeable Home/Works/Notes/Contact) | SSG       | Notion works data source (Works only) | implemented; ISR revalidation TBD |
+| `/about` | About                                     | SSG       | — (static)                            | implemented                       |
 
 ## 3. Directory responsibilities (decided)
 
