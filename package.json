@@ -2,6 +2,7 @@
   "private": true,
   "name": "portfolio",
   "scripts": {
+    "setup:env": "ln -sf ../../.env apps/web/.env",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
