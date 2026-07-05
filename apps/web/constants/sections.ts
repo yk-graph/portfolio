@@ -30,8 +30,8 @@ export const sections: {
   {
     id: 'contact',
     label: 'Contact',
-    bg: 'var(--color-brand-wine)',
+    bg: 'var(--color-brand-cherry)',
     gradient:
-      'linear-gradient(315deg, var(--color-brand-wine), var(--color-brand-wine-dark), var(--color-brand-wine), var(--color-brand-wine-light), var(--color-brand-wine))',
+      'linear-gradient(315deg, var(--color-brand-cherry), var(--color-brand-cherry-dark), var(--color-brand-cherry), var(--color-brand-cherry-light), var(--color-brand-cherry))',
   },
 ]
