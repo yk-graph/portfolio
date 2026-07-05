@@ -34,11 +34,16 @@ export function SectionPager({ content }: { content: Record<SectionId, ReactNode
   const active = sections[index]
 
   return (
-    <motion.div
-      className="fixed inset-0 overflow-hidden bg-brand-navy text-white"
-      animate={{ backgroundColor: active.bg }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-    >
+    <div className="fixed inset-0 overflow-hidden text-white">
+      {sections.map((section, i) => (
+        <div
+          key={section.id}
+          aria-hidden
+          className="animate-bg-drift absolute inset-0 bg-size-[600%_600%] transition-opacity duration-700 ease-out"
+          style={{ backgroundImage: section.gradient, opacity: i === index ? 1 : 0 }}
+        />
+      ))}
+
       <AnimatePresence custom={direction} initial={false}>
         <motion.section
           key={active.id}
@@ -62,6 +67,6 @@ export function SectionPager({ content }: { content: Record<SectionId, ReactNode
       </AnimatePresence>
 
       <SectionNav items={sections} activeIndex={index} onSelect={go} />
-    </motion.div>
+    </div>
   )
 }
