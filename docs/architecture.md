@@ -64,6 +64,18 @@ Why: if the data layer is the only place that knows Notion's shape,
 switching CMS later touches one directory, not every component.
 Internal types are the contract; the Notion mapping is an implementation detail.
 
+### Image persistence (decided)
+
+Notion image URLs are signed and expire (~1 hour), so an SSG build that
+embedded them would ship dead links. The data layer therefore downloads each
+image at build time and re-hosts it on Cloudflare R2, returning the permanent
+public URL as the internal type's image field. `last_edited_time` is appended
+as a cache-busting query so an edited image invalidates the CDN cache.
+
+Why R2 lives in the data layer: re-hosting is part of turning a raw Notion
+shape into a stable internal type — components only ever see the permanent URL,
+never the expiring Notion one.
+
 ## 5. Content / data model
 
 The `Work` type is the internal model for a portfolio work, defined in
