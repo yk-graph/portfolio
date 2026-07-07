@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import type { Work } from '@/lib'
+import type { Work } from '@/lib/notion'
 
 import { WorksCarousel } from './carousel'
 import { WorksDetail } from './detail'

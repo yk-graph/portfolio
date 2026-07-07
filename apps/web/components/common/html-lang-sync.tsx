@@ -1,0 +1,11 @@
+'use client'
+
+import { useEffect } from 'react'
+
+export function HtmlLangSync({ lang }: { lang: string }) {
+  useEffect(() => {
+    document.documentElement.lang = lang
+  }, [lang])
+
+  return null
+}
