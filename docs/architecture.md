@@ -18,10 +18,10 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route           | Page                                      | Rendering        | Data source                            | Status                            |
-| --------------- | ----------------------------------------- | ---------------- | -------------------------------------- | --------------------------------- |
+| Route           | Page                                      | Rendering        | Data source                              | Status                            |
+| --------------- | ----------------------------------------- | ---------------- | ---------------------------------------- | --------------------------------- |
 | `/[lang]`       | Home (swipeable Home/Works/Notes/Contact) | SSG (per locale) | Notion works data source + UI dictionary | implemented; ISR revalidation TBD |
-| `/[lang]/about` | About                                     | SSG (per locale) | UI dictionary (static)                 | implemented                       |
+| `/[lang]/about` | About                                     | SSG (per locale) | UI dictionary (static)                   | implemented                       |
 
 All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
 (`/`, `/about`) is redirected by `proxy.ts` — see section 7.
@@ -34,7 +34,7 @@ All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
 | `apps/web/components/` | Site-specific composite UI (Hero, ProjectCard). NOT generic.      |
 | `apps/web/constants/`  | Static app data/config (e.g. section definitions).                |
 | `apps/web/lib/`        | App logic: data fetching, the Notion data layer, i18n, helpers.   |
-| `apps/web/lib/i18n/`   | Locale config + server-side UI dictionaries (see section 7).       |
+| `apps/web/lib/i18n/`   | Locale config + server-side UI dictionaries (see section 7).      |
 | `apps/web/proxy.ts`    | Locale detection + redirect (middleware).                         |
 | `packages/ui/`         | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
 
