@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { Outfit, Fraunces } from 'next/font/google'
+import { notFound } from 'next/navigation'
 
 import { ThemeProvider, SplashProvider } from '@/components/provider'
-import './globals.css'
+import { locales, hasLocale } from '@/lib'
+import '../globals.css'
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -26,13 +28,22 @@ export const metadata: Metadata = {
   description: 'Engineer portfolio — selected work, writing, and background.',
 }
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }))
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: Promise<{ lang: string }>
 }>) {
+  const { lang } = await params
+  if (!hasLocale(lang)) notFound()
+
   return (
-    <html lang="en" suppressHydrationWarning className={`${outfit.variable} ${fraunces.variable} h-full antialiased`}>
+    <html lang={lang} suppressHydrationWarning className={`${outfit.variable} ${fraunces.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SplashProvider>{children}</SplashProvider>
