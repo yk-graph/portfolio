@@ -42,7 +42,7 @@ export function SplashProvider({ children }: SplashProviderProps) {
   return (
     <>
       <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: blockingScript }} />
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => document.documentElement.classList.add('splash-dismissed')}>
         {show && (
           <motion.div
             key="splash"

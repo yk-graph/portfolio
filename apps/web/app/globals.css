@@ -8,6 +8,17 @@
   display: none;
 }
 
+[data-splash-gate] {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.splash-dismissed [data-splash-gate] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @theme {
   --color-brand-navy: #0f3b59;
   --color-brand-navy-light: #104b4b;

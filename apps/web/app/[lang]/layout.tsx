@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Outfit, Fraunces } from 'next/font/google'
 import { notFound } from 'next/navigation'
 
-import { ThemeProvider, SplashProvider } from '@/components/provider'
+import { LanguageSwitcher } from '@/components/common'
+import { ThemeProvider, SplashProvider } from '@/components'
 import { locales, hasLocale } from '@/lib'
 import '../globals.css'
 
@@ -47,6 +48,9 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SplashProvider>{children}</SplashProvider>
+          <div data-splash-gate className="fixed right-4 top-4 z-50">
+            <LanguageSwitcher />
+          </div>
         </ThemeProvider>
       </body>
     </html>
