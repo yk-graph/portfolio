@@ -18,6 +18,7 @@ All docs are in English. Updates are manual, via `/update-docs`.
 | Internal type / content model defined or changed    | `docs/architecture.md` section 5 (or `docs/data-model.md` if split out) |
 | Directory responsibility / boundary changed         | `docs/architecture.md` (section 3)                                      |
 | Deploy / CI pipeline or image / registry strategy   | `docs/deployment.md`                                                    |
+| i18n: locale routing, dictionaries, or switcher     | `docs/architecture.md` (section 7)                                      |
 
 ## Update policy
 
