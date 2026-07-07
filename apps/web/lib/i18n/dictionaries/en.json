@@ -3,6 +3,9 @@
     "title": "Portfolio",
     "description": "Engineer portfolio — selected work, writing, and background."
   },
+  "home": {
+    "description": ["Page Description", "Lorem Ipsum is simply", "dummy text of the printing"]
+  },
   "sections": {
     "home": "Home",
     "works": "Works",

@@ -3,6 +3,9 @@
     "title": "Portfolio",
     "description": "エンジニアのポートフォリオ — 制作物・執筆・経歴。"
   },
+  "home": {
+    "description": ["ページ説明", "これはダミーテキストで", "レイアウト確認用の文章です"]
+  },
   "sections": {
     "home": "ホーム",
     "works": "制作物",

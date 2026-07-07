@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Icon, type IconName } from '@/components/common'
+import type { Dictionary } from '@/lib/i18n/dictionaries'
 
 const pageLinks = [
   { label: 'ABOUT', href: '/about', width: 'w-36 hover:w-40' },
@@ -14,7 +15,7 @@ const snsLinks: { label: string; href: string; icon: IconName }[] = [
   { label: 'LinkedIn', href: 'https://example.com/linkedin', icon: 'linkedin' },
 ]
 
-export function HomeSection() {
+export function HomeSection({ dict }: { dict: Dictionary['home'] }) {
   return (
     <div className="@container flex h-full w-full flex-col justify-between py-16">
       <div className="flex flex-col items-end gap-10 text-right">
@@ -38,11 +39,12 @@ export function HomeSection() {
           </span>
         </h1>
         <p className="pr-6 text-lg leading-relaxed text-white/70">
-          Page Description
-          <br />
-          Lorem Ipsum is simply
-          <br />
-          dummy text of the printing
+          {dict.description.map((line, i) => (
+            <span key={i}>
+              {line}
+              {i < dict.description.length - 1 && <br />}
+            </span>
+          ))}
         </p>
       </div>
 
