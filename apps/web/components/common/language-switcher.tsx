@@ -33,9 +33,7 @@ export function LanguageSwitcher() {
           onClick={() => switchTo(locale)}
           aria-current={locale === current ? 'true' : undefined}
           className={
-            locale === current
-              ? 'text-foreground'
-              : 'text-foreground/40 transition-colors hover:text-foreground/70'
+            locale === current ? 'text-foreground' : 'text-foreground/40 transition-colors hover:text-foreground/70'
           }
         >
           {locale.toUpperCase()}
