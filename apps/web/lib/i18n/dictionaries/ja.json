@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "title": "Portfolio",
+    "description": "エンジニアのポートフォリオ — 制作物・執筆・経歴。"
+  },
+  "sections": {
+    "home": "ホーム",
+    "works": "制作物",
+    "notes": "ノート",
+    "contact": "お問い合わせ"
+  },
+  "about": {
+    "greeting": "こんにちは、Tatsuya です",
+    "bio": "フロントエンドの設計と、クリーンでアクセシブルな UI を得意とするソフトウェア開発者です。",
+    "links": {
+      "calendar": "カレンダー",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  }
+}

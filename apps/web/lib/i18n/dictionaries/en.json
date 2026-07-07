@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "title": "Portfolio",
+    "description": "Engineer portfolio — selected work, writing, and background."
+  },
+  "sections": {
+    "home": "Home",
+    "works": "Works",
+    "notes": "Notes",
+    "contact": "Contact"
+  },
+  "about": {
+    "greeting": "Hello, I'm Tatsuya",
+    "bio": "A software developer focused on front-end architecture and clean, accessible UI.",
+    "links": {
+      "calendar": "Calendar",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  }
+}
