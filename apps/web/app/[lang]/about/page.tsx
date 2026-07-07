@@ -2,8 +2,8 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { BackNavigation, Icon, type IconName } from '@/components'
-import { hasLocale } from '@/lib'
+import { BackNavigation, Icon, type IconName } from '@/components/common'
+import { hasLocale } from '@/lib/i18n'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 
 export const metadata: Metadata = {

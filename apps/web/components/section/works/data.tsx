@@ -1,4 +1,4 @@
-import { getWorks, type Work } from '@/lib'
+import { getWorks, type Work } from '@/lib/notion'
 
 import { WorksError } from './error'
 import { WorksGallery } from './gallery'

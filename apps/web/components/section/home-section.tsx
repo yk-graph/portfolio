@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Icon, type IconName } from '@/components/common'
-import type { Dictionary } from '@/lib/i18n/dictionaries'
+import type { Dictionary } from '@/lib/i18n'
 
 const pageLinks = [
   { label: 'ABOUT', href: '/about', width: 'w-36 hover:w-40' },

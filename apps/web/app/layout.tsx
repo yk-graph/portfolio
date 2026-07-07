@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Outfit, Fraunces } from 'next/font/google'
 
 import { LanguageSwitcher } from '@/components/common'
-import { ThemeProvider, SplashProvider } from '@/components'
+import { ThemeProvider, SplashProvider } from '@/components/provider'
 import './globals.css'
 
 const outfit = Outfit({

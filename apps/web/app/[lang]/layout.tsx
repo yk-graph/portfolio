@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 
 import { HtmlLangSync } from '@/components/common'
-import { locales, hasLocale } from '@/lib'
+import { locales, hasLocale } from '@/lib/i18n'
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }))

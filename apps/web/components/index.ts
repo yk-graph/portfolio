@@ -1,7 +1,0 @@
-export * from './common'
-export * from './provider'
-export * from './section'
-export { HomeSection } from './section/home-section'
-export { WorksSection } from './section/works'
-export { NotesSection } from './section/notes-section'
-export { ContactSection } from './section/contact-section'
