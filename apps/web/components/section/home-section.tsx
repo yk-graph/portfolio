@@ -15,7 +15,7 @@ const snsLinks: { label: string; href: string; icon: IconName }[] = [
   { label: 'LinkedIn', href: 'https://example.com/linkedin', icon: 'linkedin' },
 ]
 
-export function HomeSection({ dict }: { dict: Dictionary['home'] }) {
+export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: string }) {
   return (
     <div className="@container flex h-full w-full flex-col justify-between py-16">
       <div className="flex flex-col items-end gap-10 text-right">
@@ -53,7 +53,7 @@ export function HomeSection({ dict }: { dict: Dictionary['home'] }) {
           {pageLinks.map(({ label, href, width }) => (
             <li key={label}>
               <Link
-                href={href}
+                href={`/${lang}${href}`}
                 className={`block rounded-r-full bg-neutral-100 py-3 pl-8 text-sm sm:text-base font-bold tracking-widest text-brand-navy transition-[width] duration-300 ease-out ${width}`}
               >
                 {label}

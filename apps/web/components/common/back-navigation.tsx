@@ -8,12 +8,13 @@ import { navLinks } from './nav-links'
 export function BackNavigation() {
   const pathname = usePathname()
   const router = useRouter()
+  const locale = pathname.split('/')[1]
 
   const handleBack = () => {
     if (window.history.length > 1) {
       router.back()
     } else {
-      router.push('/')
+      router.push(`/${locale}`)
     }
   }
 
@@ -29,11 +30,12 @@ export function BackNavigation() {
 
       <ul className="flex items-center gap-8">
         {navLinks.map(({ label, href }) => {
-          const isActive = pathname === href || pathname.startsWith(`${href}/`)
+          const localizedHref = `/${locale}${href}`
+          const isActive = pathname === localizedHref || pathname.startsWith(`${localizedHref}/`)
           return (
             <li key={label}>
               <Link
-                href={href}
+                href={localizedHref}
                 aria-current={isActive ? 'page' : undefined}
                 className={`font-heading text-sm font-bold tracking-widest transition-opacity hover:opacity-60 ${
                   isActive ? 'text-foreground underline underline-offset-8' : 'text-neutral-600 dark:text-neutral-400'
