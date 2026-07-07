@@ -43,7 +43,7 @@ export function WorksDetail({ work }: { work: Work }) {
 
       <ul className="flex shrink-0 flex-wrap gap-2">
         {work.tags.map((tag) => (
-          <li key={tag} className="rounded-full bg-neutral-100 px-2 py-1 text-xs font-medium text-brand-amber">
+          <li key={tag} className="rounded-full bg-neutral-100 px-2 py-1 text-xs font-medium text-brand-olive">
             {tag}
           </li>
         ))}

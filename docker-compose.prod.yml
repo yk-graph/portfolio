@@ -1,11 +1,6 @@
 services:
   web-prod:
-    build:
-      context: .
-      dockerfile: apps/web/Dockerfile
-      args:
-        NOTION_TOKEN: ${NOTION_TOKEN}
-        NOTION_DATA_SOURCE_ID: ${NOTION_DATA_SOURCE_ID}
+    image: ghcr.io/yk-graph/portfolio-web:latest
     container_name: portfolio-web-prod
     ports:
       - '4000:4000'
@@ -16,9 +11,7 @@ services:
     restart: unless-stopped
 
   storybook-prod:
-    build:
-      context: .
-      dockerfile: apps/storybook/Dockerfile
+    image: ghcr.io/yk-graph/portfolio-storybook:latest
     container_name: portfolio-storybook-prod
     ports:
       - '4006:80'

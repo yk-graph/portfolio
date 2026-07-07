@@ -1,5 +1,12 @@
-import { QueryDataSourceResponse, isFullPage, isNotionClientError, APIResponseError } from '@notionhq/client'
+import {
+  APIResponseError,
+  PageObjectResponse,
+  QueryDataSourceResponse,
+  isFullPage,
+  isNotionClientError,
+} from '@notionhq/client'
 
+import { persistImage } from '../r2'
 import { getDataSourceId, getNotionClient } from './client'
 import { mapPageToWork } from './mapper'
 import type { Work } from './types'
@@ -11,8 +18,19 @@ export async function getWorks(): Promise<Work[]> {
       sorts: [{ property: 'Updated Time', direction: 'descending' }],
     })
 
-    const workPages = response.results.filter(isFullPage)
-    return workPages.map((page) => mapPageToWork(page))
+    const workPages: PageObjectResponse[] = response.results.filter(isFullPage)
+    return await Promise.all(
+      workPages.map(async (page) => {
+        const work = mapPageToWork(page)
+
+        if (!work.thumbnail) return work
+
+        return {
+          ...work,
+          thumbnail: await persistImage(work.thumbnail, 'works', work.id, page.last_edited_time),
+        }
+      })
+    )
   } catch (error: unknown) {
     if (error instanceof APIResponseError) {
       console.error('getWorks: Notion API error', { status: error.status, code: error.code })
