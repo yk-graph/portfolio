@@ -1,5 +1,6 @@
 import { Fragment, type ReactNode } from 'react'
 import type { RichTextItemResponse } from '@notionhq/client'
+import Image from 'next/image'
 
 import type { NoteBlock } from '@/lib/notion'
 
@@ -64,6 +65,16 @@ function renderBlock(block: NoteBlock): ReactNode {
       )
     case 'divider':
       return <hr className="border-white/15" />
+    case 'image': {
+      const src = block.image.type === 'external' ? block.image.external.url : block.image.file.url
+      const caption = block.image.caption.map((t) => t.plain_text).join('')
+      return (
+        <figure className="flex flex-col gap-2">
+          <Image src={src} alt={caption} width={0} height={0} sizes="100vw" className="h-auto w-full rounded-2xl" />
+          {caption && <figcaption className="text-center text-sm text-white/50">{caption}</figcaption>}
+        </figure>
+      )
+    }
     default:
       return null
   }

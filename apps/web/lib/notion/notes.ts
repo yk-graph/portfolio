@@ -74,10 +74,27 @@ async function listChildren(blockId: string): Promise<BlockObjectResponse[]> {
   return out
 }
 
+// In-body image blocks carry an expiring Notion URL, so re-host them on R2.
+async function resolveBlockImage(block: BlockObjectResponse): Promise<BlockObjectResponse> {
+  if (block.type !== 'image') return block
+
+  const source = block.image.type === 'external' ? block.image.external.url : block.image.file.url
+  const url = await persistImage(source, 'notes', block.id, block.last_edited_time)
+
+  return {
+    ...block,
+    image:
+      block.image.type === 'external'
+        ? { ...block.image, external: { url } }
+        : { ...block.image, file: { ...block.image.file, url } },
+  }
+}
+
 async function fetchTree(blockId: string): Promise<NoteBlock[]> {
   const blocks = await listChildren(blockId)
   return Promise.all(
-    blocks.map(async (block): Promise<NoteBlock> => {
+    blocks.map(async (raw): Promise<NoteBlock> => {
+      const block = await resolveBlockImage(raw)
       if (!block.has_children) return block
       return { ...block, children: await fetchTree(block.id) }
     })
