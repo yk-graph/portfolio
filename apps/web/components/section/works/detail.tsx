@@ -1,5 +1,5 @@
 import { Icon } from '@/components/common'
-import type { Work } from '@/lib'
+import type { Work } from '@/lib/notion'
 
 export function WorksDetail({ work }: { work: Work }) {
   return (

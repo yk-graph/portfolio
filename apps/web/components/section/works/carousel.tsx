@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react'
 import Image from 'next/image'
 
-import type { Work } from '@/lib'
+import type { Work } from '@/lib/notion'
 
 const MOBILE = { sizes: [240, 200, 160], ratio: 1, gap: 180, area: 150, xStep: 20 }
 const TABLET = { sizes: [360, 320], ratio: 1, gap: 200, area: 300, xStep: 32 }

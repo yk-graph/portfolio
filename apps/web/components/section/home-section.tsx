@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Icon, type IconName } from '@/components/common'
+import type { Dictionary } from '@/lib/i18n'
 
 const pageLinks = [
   { label: 'ABOUT', href: '/about', width: 'w-36 hover:w-40' },
@@ -14,7 +15,7 @@ const snsLinks: { label: string; href: string; icon: IconName }[] = [
   { label: 'LinkedIn', href: 'https://example.com/linkedin', icon: 'linkedin' },
 ]
 
-export function HomeSection() {
+export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: string }) {
   return (
     <div className="@container flex h-full w-full flex-col justify-between py-16">
       <div className="flex flex-col items-end gap-10 text-right">
@@ -38,11 +39,12 @@ export function HomeSection() {
           </span>
         </h1>
         <p className="pr-6 text-lg leading-relaxed text-white/70">
-          Page Description
-          <br />
-          Lorem Ipsum is simply
-          <br />
-          dummy text of the printing
+          {dict.description.map((line, i) => (
+            <span key={i}>
+              {line}
+              {i < dict.description.length - 1 && <br />}
+            </span>
+          ))}
         </p>
       </div>
 
@@ -51,7 +53,7 @@ export function HomeSection() {
           {pageLinks.map(({ label, href, width }) => (
             <li key={label}>
               <Link
-                href={href}
+                href={`/${lang}${href}`}
                 className={`block rounded-r-full bg-neutral-100 py-3 pl-8 text-sm sm:text-base font-bold tracking-widest text-brand-navy transition-[width] duration-300 ease-out ${width}`}
               >
                 {label}
