@@ -1,4 +1,6 @@
 export * from './client'
 export * from './mapper'
+export * from './notes'
+export * from './notes-mapper'
 export * from './types'
 export * from './works'

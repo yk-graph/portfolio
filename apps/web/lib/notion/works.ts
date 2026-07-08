@@ -7,14 +7,14 @@ import {
 } from '@notionhq/client'
 
 import { persistImage } from '../r2'
-import { getDataSourceId, getNotionClient } from './client'
+import { getWorksDataSourceId, getNotionClient } from './client'
 import { mapPageToWork } from './mapper'
 import type { Work } from './types'
 
 export async function getWorks(): Promise<Work[]> {
   try {
     const response: QueryDataSourceResponse = await getNotionClient().dataSources.query({
-      data_source_id: getDataSourceId(),
+      data_source_id: getWorksDataSourceId(),
       sorts: [{ property: 'Updated Time', direction: 'descending' }],
     })
 

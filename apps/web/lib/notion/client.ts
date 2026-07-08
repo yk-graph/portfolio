@@ -11,8 +11,14 @@ export function getNotionClient(): Client {
   return client
 }
 
-export function getDataSourceId(): string {
-  const id = process.env.NOTION_DATA_SOURCE_ID
-  if (!id) throw new Error('NOTION_DATA_SOURCE_ID is not set.')
+export function getWorksDataSourceId(): string {
+  const id = process.env.NOTION_WORKS_DATA_SOURCE_ID
+  if (!id) throw new Error('NOTION_WORKS_DATA_SOURCE_ID is not set.')
+  return id
+}
+
+export function getNotesDataSourceId(): string {
+  const id = process.env.NOTION_NOTES_DATA_SOURCE_ID
+  if (!id) throw new Error('NOTION_NOTES_DATA_SOURCE_ID is not set.')
   return id
 }
