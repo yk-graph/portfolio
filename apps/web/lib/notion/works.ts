@@ -8,7 +8,7 @@ import {
 
 import { persistImage } from '../r2'
 import { getWorksDataSourceId, getNotionClient } from './client'
-import { mapPageToWork } from './mapper'
+import { mapPageToWork } from './works-mapper'
 import type { Work } from './types'
 
 export async function getWorks(): Promise<Work[]> {
