@@ -1,0 +1,5 @@
+export * from './section-pager'
+export * from './home-section'
+export * from './notes-section'
+export * from './contact-section'
+export * from './works'

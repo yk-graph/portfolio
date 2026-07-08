@@ -14,3 +14,6 @@ storybook-static/
 .pnpm-store
 .claude/settings.local.json
 create-issues.sh
+
+# Local issue drafts (not tracked)
+scripts/issues/
