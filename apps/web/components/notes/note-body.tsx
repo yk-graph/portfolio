@@ -34,15 +34,21 @@ function renderBlock(block: NoteBlock): ReactNode {
       return <p className="text-lg leading-relaxed text-white/80">{<RichText rich={block.paragraph.rich_text} />}</p>
     case 'heading_1':
       return (
-        <h2 className="mt-8 font-heading text-3xl font-black text-white">{<RichText rich={block.heading_1.rich_text} />}</h2>
+        <h2 className="mt-8 font-heading text-3xl font-black text-white">
+          {<RichText rich={block.heading_1.rich_text} />}
+        </h2>
       )
     case 'heading_2':
       return (
-        <h3 className="mt-6 font-heading text-2xl font-bold text-white">{<RichText rich={block.heading_2.rich_text} />}</h3>
+        <h3 className="mt-6 font-heading text-2xl font-bold text-white">
+          {<RichText rich={block.heading_2.rich_text} />}
+        </h3>
       )
     case 'heading_3':
       return (
-        <h4 className="mt-4 font-heading text-xl font-bold text-white/90">{<RichText rich={block.heading_3.rich_text} />}</h4>
+        <h4 className="mt-4 font-heading text-xl font-bold text-white/90">
+          {<RichText rich={block.heading_3.rich_text} />}
+        </h4>
       )
     case 'quote':
       return (
