@@ -6,6 +6,7 @@ import {
   isNotionClientError,
 } from '@notionhq/client'
 
+import { persistImage } from '../r2'
 import { getNotesDataSourceId, getNotionClient } from './client'
 import { mapPageToNote } from './notes-mapper'
 import type { Note } from './types'
@@ -18,7 +19,18 @@ export async function getNotes(lang: string): Promise<Note[]> {
     })
 
     const pages: PageObjectResponse[] = response.results.filter(isFullPage)
-    return pages.map((page) => mapPageToNote(page, lang))
+    return await Promise.all(
+      pages.map(async (page) => {
+        const note = mapPageToNote(page, lang)
+
+        if (!note.thumbnail) return note
+
+        return {
+          ...note,
+          thumbnail: await persistImage(note.thumbnail, 'notes', note.id, page.last_edited_time),
+        }
+      })
+    )
   } catch (error: unknown) {
     if (error instanceof APIResponseError) {
       console.error('getNotes: Notion API error', { status: error.status, code: error.code })
