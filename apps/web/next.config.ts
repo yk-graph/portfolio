@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   outputFileTracingRoot: path.join(process.cwd(), '../../'),
   transpilePackages: ['@repo/ui'],
+  experimental: {
+    viewTransition: true,
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.yk-graph.com' },
