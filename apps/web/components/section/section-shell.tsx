@@ -1,13 +1,19 @@
 'use client'
 
-import { ViewTransition, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 
 import { SectionNav } from '@/components/common'
 import { sections } from '@/constants'
 
 const SWIPE_THRESHOLD = 80
+
+const slideVariants = {
+  enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 }),
+}
 
 function hrefFor(lang: string, index: number) {
   const { id } = sections[index]
@@ -25,9 +31,12 @@ export function SectionShell({ children }: { children: React.ReactNode }) {
   const found = sections.findIndex((section) => (section.id === 'home' ? current === '' : section.id === current))
   const index = found === -1 ? 0 : found
 
+  const [direction, setDirection] = useState(0)
+
   const go = (next: number) => {
     if (noteOpen || next < 0 || next >= sections.length || next === index) return
-    router.push(hrefFor(lang, next), { transitionTypes: [next > index ? 'nav-forward' : 'nav-back'] })
+    setDirection(next > index ? 1 : -1)
+    router.push(hrefFor(lang, next))
   }
 
   useEffect(() => {
@@ -38,6 +47,8 @@ export function SectionShell({ children }: { children: React.ReactNode }) {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   })
+
+  const active = sections[index]
 
   return (
     <div className="fixed inset-0 overflow-hidden text-white">
@@ -50,24 +61,27 @@ export function SectionShell({ children }: { children: React.ReactNode }) {
         />
       ))}
 
-      <motion.div
-        className="absolute inset-0 flex cursor-grab flex-col items-center justify-center active:cursor-grabbing"
-        drag={noteOpen ? false : 'x'}
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.2}
-        onDragEnd={(_, info) => {
-          if (info.offset.x < -SWIPE_THRESHOLD) go(index + 1)
-          else if (info.offset.x > SWIPE_THRESHOLD) go(index - 1)
-        }}
-      >
-        <ViewTransition
-          enter={{ 'nav-forward': 'nav-forward', 'nav-back': 'nav-back', default: 'none' }}
-          exit={{ 'nav-forward': 'nav-forward', 'nav-back': 'nav-back', default: 'none' }}
-          default="none"
+      <AnimatePresence custom={direction} initial={false}>
+        <motion.div
+          key={active.id}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.3 } }}
+          drag={noteOpen ? false : 'x'}
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(_, info) => {
+            if (info.offset.x < -SWIPE_THRESHOLD) go(index + 1)
+            else if (info.offset.x > SWIPE_THRESHOLD) go(index - 1)
+          }}
+          className="absolute inset-0 flex cursor-grab flex-col items-center justify-center active:cursor-grabbing"
         >
           {children}
-        </ViewTransition>
-      </motion.div>
+        </motion.div>
+      </AnimatePresence>
 
       <SectionNav items={sections} activeIndex={index} onSelect={go} />
     </div>
