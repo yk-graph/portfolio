@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Outfit, Fraunces } from 'next/font/google'
 import { LanguageSwitcher } from '@/components/common'
 import { ThemeProvider, SplashProvider } from '@/components/provider'
+import { SectionBackground } from '@/components/section'
 import './globals.css'
 
 const outfit = Outfit({
@@ -35,6 +36,7 @@ export default function RootLayout({
     <html suppressHydrationWarning className={`${outfit.variable} ${fraunces.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <SectionBackground />
           <SplashProvider>{children}</SplashProvider>
           <div data-splash-gate className="fixed right-4 top-4 z-50">
             <LanguageSwitcher />

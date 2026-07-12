@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { SectionNav } from '@/components/common'
-import { sections } from '@/constants'
+import { sections, sectionIndexFromPath } from '@/constants'
 
 const SWIPE_THRESHOLD = 80
 
@@ -28,8 +28,7 @@ export function SectionShell({ children }: { children: React.ReactNode }) {
   const lang = segments[1]
   const current = segments[2] ?? ''
   const noteOpen = current === 'notes' && Boolean(segments[3])
-  const found = sections.findIndex((section) => (section.id === 'home' ? current === '' : section.id === current))
-  const index = found === -1 ? 0 : found
+  const index = sectionIndexFromPath(pathname)
 
   const [direction, setDirection] = useState(0)
 
@@ -52,15 +51,6 @@ export function SectionShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="fixed inset-0 overflow-hidden text-white">
-      {sections.map((section, i) => (
-        <div
-          key={section.id}
-          aria-hidden
-          className="animate-bg-drift absolute inset-0 bg-size-[600%_600%] transition-opacity duration-700 ease-out"
-          style={{ backgroundImage: section.gradient, opacity: i === index ? 1 : 0 }}
-        />
-      ))}
-
       <AnimatePresence custom={direction} initial={false}>
         <motion.div
           key={active.id}
