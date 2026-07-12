@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 
 import { NoteView } from '@/components/notes'
+import { NotesSection } from '@/components/section'
 import { locales, hasLocale } from '@/lib/i18n'
 import { getNote, getNoteIds } from '@/lib/notion'
 
@@ -20,5 +21,10 @@ export default async function NotePage({ params }: { params: Promise<{ lang: str
   const note = await getNote(id, lang)
   if (!note) notFound()
 
-  return <NoteView note={note} closeHref={`/${lang}/notes`} />
+  return (
+    <>
+      <NotesSection lang={lang} />
+      <NoteView note={note} closeHref={`/${lang}/notes`} />
+    </>
+  )
 }
