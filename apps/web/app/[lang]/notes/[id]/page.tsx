@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 
 import { NoteView } from '@/components/notes'
-import { NotesSection } from '@/components/section'
+import { NotesSection, SectionSync } from '@/components/section'
 import { locales, hasLocale } from '@/lib/i18n'
 import { getNote, getNoteIds } from '@/lib/notion'
 
@@ -23,8 +23,11 @@ export default async function NotePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <NotesSection lang={lang} />
-      <NoteView note={note} closeHref={`/${lang}/notes`} />
+      <SectionSync id="notes" />
+      <div className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden text-white">
+        <NotesSection lang={lang} />
+      </div>
+      <NoteView note={note} closeHref={`/${lang}`} />
     </>
   )
 }
