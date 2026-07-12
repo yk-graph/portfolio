@@ -18,26 +18,26 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route                | Page                                 | Rendering        | Data source                   | Status      |
-| -------------------- | ------------------------------------ | ---------------- | ----------------------------- | ----------- |
-| `/[lang]`            | Home section                         | SSG (per locale) | UI dictionary                 | implemented |
-| `/[lang]/works`      | Works section                        | SSG (per locale) | Notion works data source      | implemented |
-| `/[lang]/notes`      | Notes section (list)                 | SSG (per locale) | Notion notes data source      | implemented |
-| `/[lang]/notes/[id]` | Note detail (drawer over notes list) | SSG (per locale) | Notion note (per-locale body) | implemented |
-| `/[lang]/contact`    | Contact section                      | SSG (per locale) | static (UI only)              | implemented |
-| `/[lang]/about`      | About                                | SSG (per locale) | UI dictionary (static)        | implemented |
+| Route                | Page                                       | Rendering        | Data source                                        | Status      |
+| -------------------- | ------------------------------------------ | ---------------- | -------------------------------------------------- | ----------- |
+| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)  | SSG (per locale) | Notion works + notes data source + UI dictionary   | implemented |
+| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list) | SSG (per locale) | Notion note (per-locale body) + notes list         | implemented |
+| `/[lang]/about`      | About                                      | SSG (per locale) | UI dictionary (static)                             | implemented |
 
 All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
 (`/`, `/about`) is redirected by `proxy.ts` — see section 7.
 
-**Section navigation.** Home/Works/Notes/Contact are sibling routes grouped
-under a transparent `(sections)` route group. Their shared `layout.tsx` renders
-a persistent client `SectionShell` (dot nav + swipe/keyboard) that navigates
-between the section routes and animates the change with a motion slide, so the
-four routes feel like one swipeable surface. `/[lang]/notes/[id]` renders the
-notes list behind a motion drawer (slides up on open, down on close); it is a
-plain route — an intercepting-route modal was considered and dropped to avoid
-parallel-slot staleness (stale close, locale-switch reload).
+**Section navigation.** Home/Works/Notes/Contact are NOT routes — they are one
+`/[lang]` page rendered by a client `SectionPager` that switches the active
+section from state (dot nav + swipe/keyboard) with a motion slide. The active
+section lives in `SectionProvider` (a context in the root layout), so it survives
+locale switches and navigation to a note (see section 7). `/[lang]/notes/[id]` IS
+a real route (shareable, SSG): it renders the Notes list behind a motion drawer
+(slides up on open, down on close), and a `SectionSync` marks Notes as the active
+section — so closing returns to `/[lang]` on the Notes section (with the list
+already behind, no lag), even from a shared link. A route-per-section variant and
+an intercepting-route modal were both tried and dropped — real routes forced
+parallel-slot / background-remount workarounds that the one-page pager avoids.
 
 ## 3. Directory responsibilities (decided)
 
@@ -52,10 +52,12 @@ parallel-slot staleness (stale close, locale-switch reload).
 | `packages/ui/`         | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
 
 The root `app/layout.tsx` owns `<html>`/`<body>`, the app shell (providers,
-language switcher) and the animated section background (`SectionBackground`);
+language switcher), the `SectionProvider` (active-section state) and the animated
+section background (`SectionBackground`, which reads that state);
 `app/[lang]/layout.tsx` only validates the locale and syncs `<html lang>`.
-Keeping the shell AND the background in the root layout means neither remounts
-on locale switches (see section 7) — otherwise the background animation resets.
+Keeping the context AND the background in the root layout means neither remounts
+on locale switches or note navigation (see section 7) — otherwise the active
+section and the background animation would reset.
 
 Non-route code (components, constants, lib) lives at the `apps/web` root, not
 under `app/`, so route segments stay clearly separated from shared code. It is
@@ -134,11 +136,12 @@ Works bodies remain deferred (section 6).
 - **Language switcher**: a client control in the shell that swaps the locale
   segment of the current path and persists the choice in the `NEXT_LOCALE`
   cookie so `proxy.ts` respects it on later locale-less visits.
-- **Shell placement**: the shell (html/body, providers, switcher) and the
-  animated section background live in the root layout so they do NOT remount on
-  locale switches — otherwise the splash would replay (its blocking script would
-  re-render) and the background animation would reset. `[lang]/layout` only
-  validates the locale and syncs `<html lang>`.
+- **Shell placement**: the shell (html/body, providers, switcher), the
+  `SectionProvider` and the animated section background live in the root layout so
+  they do NOT remount on locale switches — otherwise the splash would replay (its
+  blocking script would re-render), the active section would reset to Home, and
+  the background animation would restart. `[lang]/layout` only validates the
+  locale and syncs `<html lang>`.
 - **Import boundary**: client-safe locale config and the `Dictionary` type are
   exported from `@/lib/i18n`; the server-only `getDictionary` is imported from
   `@/lib/i18n/dictionaries` so it can never be pulled into a client bundle.
