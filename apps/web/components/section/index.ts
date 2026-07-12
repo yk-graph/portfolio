@@ -1,4 +1,5 @@
-export * from './section-pager'
+export * from './section-background'
+export * from './section-shell'
 export * from './home-section'
 export * from './notes'
 export * from './contact-section'
