@@ -63,40 +63,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .animate-bg-drift {
-    animation: none;
-  }
-}
-
-/* View Transitions: the note drawer rises from the bottom; the card thumbnail
-   morphs into the detail hero (shared view-transition-name). */
-::view-transition-new(note-drawer) {
-  animation: vt-drawer-up 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-::view-transition-old(note-drawer) {
-  animation: vt-drawer-down 400ms cubic-bezier(0.55, 0, 0.7, 0.2) both;
-}
-
-@keyframes vt-drawer-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes vt-drawer-down {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(100%);
-  }
-}
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
