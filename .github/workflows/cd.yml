@@ -46,7 +46,8 @@ jobs:
           tags: ghcr.io/yk-graph/portfolio-web:${{ steps.meta.outputs.tag }}
           build-args: |
             NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}
-            NOTION_DATA_SOURCE_ID=${{ secrets.NOTION_DATA_SOURCE_ID }}
+            NOTION_WORKS_DATA_SOURCE_ID=${{ secrets.NOTION_WORKS_DATA_SOURCE_ID }}
+            NOTION_NOTES_DATA_SOURCE_ID=${{ secrets.NOTION_NOTES_DATA_SOURCE_ID }}
             R2_ACCOUNT_ID=${{ secrets.R2_ACCOUNT_ID }}
             R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}
             R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}
