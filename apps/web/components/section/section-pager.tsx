@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { SectionNav } from '@/components/common'
-import { sections, sectionIndexFromPath } from '@/constants'
+import { useSection } from '@/components/provider'
+import { sections, type SectionId } from '@/constants'
 
 const SWIPE_THRESHOLD = 80
 
@@ -15,28 +15,8 @@ const slideVariants = {
   exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 }),
 }
 
-function hrefFor(lang: string, index: number) {
-  const { id } = sections[index]
-  return id === 'home' ? `/${lang}` : `/${lang}/${id}`
-}
-
-export function SectionShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
-  const router = useRouter()
-
-  const segments = pathname.split('/')
-  const lang = segments[1]
-  const current = segments[2] ?? ''
-  const noteOpen = current === 'notes' && Boolean(segments[3])
-  const index = sectionIndexFromPath(pathname)
-
-  const [direction, setDirection] = useState(0)
-
-  const go = (next: number) => {
-    if (noteOpen || next < 0 || next >= sections.length || next === index) return
-    setDirection(next > index ? 1 : -1)
-    router.push(hrefFor(lang, next))
-  }
+export function SectionPager({ content }: { content: Record<SectionId, React.ReactNode> }) {
+  const { index, direction, go } = useSection()
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -60,7 +40,7 @@ export function SectionShell({ children }: { children: React.ReactNode }) {
           animate="center"
           exit="exit"
           transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.3 } }}
-          drag={noteOpen ? false : 'x'}
+          drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
           onDragEnd={(_, info) => {
@@ -69,7 +49,7 @@ export function SectionShell({ children }: { children: React.ReactNode }) {
           }}
           className="absolute inset-0 flex cursor-grab flex-col items-center justify-center active:cursor-grabbing"
         >
-          {children}
+          {content[active.id]}
         </motion.div>
       </AnimatePresence>
 
