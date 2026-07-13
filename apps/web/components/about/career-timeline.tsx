@@ -23,7 +23,7 @@ export function CareerTimeline({ items }: { items: CareerItem[] }) {
         >
           <div className="flex w-12 shrink-0 justify-center sm:w-24">
             <span className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-[var(--color-brand-navy)] text-white">
-              <Icon name="briefcase" size={16} />
+              <Icon name={item.type === 'study' ? 'graduationCap' : 'briefcase'} size={16} />
             </span>
           </div>
 

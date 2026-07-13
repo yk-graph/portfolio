@@ -3,18 +3,29 @@ import 'server-only'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
+export type CareerType = 'work' | 'study'
+
 export interface CareerItem {
   id: string
+  type: CareerType
   period: string
   title: string
   summary: string
 }
 
-function parseHeading(line: string): { period: string; title: string } {
-  const text = line.replace(/^#+\s*/, '').trim()
+function parseHeading(line: string): { type: CareerType; period: string; title: string } {
+  let text = line.replace(/^#+\s*/, '').trim()
+
+  let type: CareerType = 'work'
+  const tag = text.match(/^\[(study|work)\]\s*/i)
+  if (tag) {
+    type = tag[1].toLowerCase() as CareerType
+    text = text.slice(tag[0].length)
+  }
+
   const index = text.indexOf('·')
-  if (index === -1) return { period: '', title: text }
-  return { period: text.slice(0, index).trim(), title: text.slice(index + 1).trim() }
+  if (index === -1) return { type, period: '', title: text }
+  return { type, period: text.slice(0, index).trim(), title: text.slice(index + 1).trim() }
 }
 
 export async function getCareer(lang: string): Promise<CareerItem[]> {

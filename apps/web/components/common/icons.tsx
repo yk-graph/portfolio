@@ -1,9 +1,10 @@
 import type { IconBaseProps, IconType } from 'react-icons'
-import { FaArrowLeft, FaBriefcase, FaGithub, FaLink, FaLinkedin, FaRegCalendar } from 'react-icons/fa6'
+import { FaArrowLeft, FaBriefcase, FaGithub, FaGraduationCap, FaLink, FaLinkedin, FaRegCalendar } from 'react-icons/fa6'
 
 const iconRegistry = {
   arrowLeft: FaArrowLeft,
   briefcase: FaBriefcase,
+  graduationCap: FaGraduationCap,
   calendar: FaRegCalendar,
   github: FaGithub,
   linkedin: FaLinkedin,
