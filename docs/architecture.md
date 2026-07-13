@@ -22,7 +22,7 @@ Each page = one row. When you add a page, add a row here BEFORE implementing.
 | -------------------- | ------------------------------------------ | ---------------- | -------------------------------------------------- | ----------- |
 | `/[lang]`            | Home/Works/Notes/Contact (one-page pager)  | SSG (per locale) | Notion works + notes data source + UI dictionary   | implemented |
 | `/[lang]/notes/[id]` | Note detail (motion drawer over notes list) | SSG (per locale) | Notion note (per-locale body) + notes list         | implemented |
-| `/[lang]/about`      | About                                      | SSG (per locale) | UI dictionary (static)                             | implemented |
+| `/[lang]/about`      | About (profile + career timeline)          | SSG (per locale) | UI dictionary + career Markdown (`content/about`)  | implemented |
 
 All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
 (`/`, `/about`) is redirected by `proxy.ts` — see section 7.
@@ -46,6 +46,7 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 | `apps/web/app/`        | Route segments ONLY (App Router). No non-route code here.         |
 | `apps/web/components/` | Site-specific composite UI (Hero, ProjectCard). NOT generic.      |
 | `apps/web/constants/`  | Static app data/config (e.g. section definitions).                |
+| `apps/web/content/`    | Authored Markdown content, per locale (e.g. `about/career.<lang>.md`). |
 | `apps/web/lib/`        | App logic: data fetching, the Notion data layer, i18n, helpers.   |
 | `apps/web/lib/i18n/`   | Locale config + server-side UI dictionaries (see section 7).      |
 | `apps/web/proxy.ts`    | Locale detection + redirect (middleware).                         |
@@ -53,7 +54,9 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 
 The root `app/layout.tsx` owns `<html>`/`<body>`, the app shell (providers,
 language switcher), the `SectionProvider` (active-section state) and the animated
-section background (`SectionBackground`, which reads that state);
+section background (`SectionBackground`, which spans every route — the pager
+follows the active section, the note route shows Notes, and other sub-pages like
+`/about` show the Home gradient, so the backdrop stays continuous);
 `app/[lang]/layout.tsx` only validates the locale and syncs `<html lang>`.
 Keeping the context AND the background in the root layout means neither remounts
 on locale switches or note navigation (see section 7) — otherwise the active
