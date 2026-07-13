@@ -49,6 +49,7 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 | `apps/web/content/`    | Authored Markdown content, per locale (e.g. `about/career.<lang>.md`). |
 | `apps/web/lib/`        | App logic: data fetching, the Notion data layer, i18n, helpers.   |
 | `apps/web/lib/i18n/`   | Locale config + server-side UI dictionaries (see section 7).      |
+| `apps/web/lib/content/`| Loads + parses authored Markdown from `content/` (e.g. career).   |
 | `apps/web/proxy.ts`    | Locale detection + redirect (middleware).                         |
 | `packages/ui/`         | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
 
@@ -112,6 +113,11 @@ The `Work` and `Note` types are the internal models for a portfolio work and a
 note, defined in `apps/web/lib/notion/types.ts` and returned by the data layer
 (`getWorks`, `getNotes` / `getNote`). They are the contract components render —
 raw Notion shapes never leak out. Contact has no data model (static form).
+
+The About page's career/education history is NOT from Notion — it is authored
+Markdown in `content/about/career.<lang>.md`, parsed by `lib/content` into the
+`CareerItem` type (a `[work]` / `[study]` tag, period, title, and summary). See
+`apps/web/content/README.md` for the authoring convention.
 (If this section grows, split into `docs/data-model.md`.)
 
 ## 6. Open decisions (TBD — fill in as decided)
