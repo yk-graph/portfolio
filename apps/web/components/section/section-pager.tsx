@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 
 import { SectionNav } from '@/components/common'
 import { useSection } from '@/components/provider'
@@ -17,6 +17,7 @@ const slideVariants = {
 
 export function SectionPager({ content }: { content: Record<SectionId, React.ReactNode> }) {
   const { index, direction, go } = useSection()
+  const reduce = useReducedMotion()
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -30,7 +31,12 @@ export function SectionPager({ content }: { content: Record<SectionId, React.Rea
   const active = sections[index]
 
   return (
-    <div className="fixed inset-0 overflow-hidden text-white">
+    <motion.div
+      className="fixed inset-0 overflow-hidden text-white"
+      initial={reduce ? false : { opacity: 0, y: 56 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+    >
       <AnimatePresence custom={direction} initial={false}>
         <motion.div
           key={active.id}
@@ -54,6 +60,6 @@ export function SectionPager({ content }: { content: Record<SectionId, React.Rea
       </AnimatePresence>
 
       <SectionNav items={sections} activeIndex={index} onSelect={go} />
-    </div>
+    </motion.div>
   )
 }

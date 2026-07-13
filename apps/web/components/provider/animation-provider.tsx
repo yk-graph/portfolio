@@ -15,9 +15,9 @@ export function AnimationProvider({ children }: AnimationProviderProps) {
   return (
     <motion.div
       key={pathname}
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 48 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 56 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
