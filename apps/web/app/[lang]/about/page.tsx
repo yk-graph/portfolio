@@ -2,7 +2,9 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { BackNavigation, Icon, type IconName } from '@/components/common'
+import { CareerTimeline } from '@/components/about'
+import { BackNavigation } from '@/components/common'
+import { getCareer } from '@/lib/content'
 import { hasLocale } from '@/lib/i18n'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 
@@ -10,51 +12,46 @@ export const metadata: Metadata = {
   title: 'About',
 }
 
-const snsLinks = [
-  { key: 'calendar', href: 'https://example.com/calendar', icon: 'calendar' },
-  { key: 'github', href: 'https://example.com/github', icon: 'github' },
-  { key: 'linkedin', href: 'https://example.com/linkedin', icon: 'linkedin' },
-] as const satisfies ReadonlyArray<{ key: 'calendar' | 'github' | 'linkedin'; href: string; icon: IconName }>
-
 export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
   const t = (await getDictionary(lang)).about
+  const career = await getCareer(lang)
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col gap-10">
-      <BackNavigation />
+    <div className="min-h-dvh overflow-hidden text-white">
+      <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-6 sm:px-10">
+        <header className="relative z-20">
+          <BackNavigation />
+        </header>
 
-      <section className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
-        <Image
-          src="/placeholder.svg"
-          alt="Illustration of Tatsuya"
-          width={240}
-          height={240}
-          className="h-40 w-40 rounded-full object-cover"
-          priority
-        />
+        <section className="flex flex-col">
+          <h1 className="relative z-10 mt-10 sm:mt-20 font-heading text-[clamp(3rem,10vw,5rem)] font-black leading-[1.1]">
+            {t.greeting.map((line, i) => (
+              <span key={i}>
+                {line}
+                {i < t.greeting.length - 1 && <br />}
+              </span>
+            ))}
+          </h1>
 
-        <h1 className="font-heading text-4xl font-black leading-tight sm:text-5xl">{t.greeting}</h1>
+          <p className="relative z-10 mt-4 w-1/2 text-lg leading-relaxed text-white">{t.bio}</p>
 
-        <p className="max-w-xl text-base leading-relaxed text-neutral-600 dark:text-neutral-400">{t.bio}</p>
+          <Image
+            src="/profile.svg"
+            alt=""
+            width={600}
+            height={400}
+            priority
+            unoptimized
+            className="-mt-40 h-auto w-full max-w-3xl self-center"
+          />
+        </section>
 
-        <ul className="flex items-center gap-6">
-          {snsLinks.map(({ key, href, icon }) => (
-            <li key={key}>
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t.links[key]}
-                className="inline-flex text-neutral-600 transition-colors hover:text-foreground dark:text-neutral-400"
-              >
-                <Icon name={icon} size={22} />
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="mt-16 sm:mt-24">
+          <CareerTimeline items={career} />
+        </section>
+      </div>
     </div>
   )
 }

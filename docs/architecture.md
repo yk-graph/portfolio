@@ -18,11 +18,11 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route                | Page                                       | Rendering        | Data source                                        | Status      |
-| -------------------- | ------------------------------------------ | ---------------- | -------------------------------------------------- | ----------- |
-| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)  | SSG (per locale) | Notion works + notes data source + UI dictionary   | implemented |
-| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list) | SSG (per locale) | Notion note (per-locale body) + notes list         | implemented |
-| `/[lang]/about`      | About                                      | SSG (per locale) | UI dictionary (static)                             | implemented |
+| Route                | Page                                        | Rendering        | Data source                                       | Status      |
+| -------------------- | ------------------------------------------- | ---------------- | ------------------------------------------------- | ----------- |
+| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)   | SSG (per locale) | Notion works + notes data source + UI dictionary  | implemented |
+| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list) | SSG (per locale) | Notion note (per-locale body) + notes list        | implemented |
+| `/[lang]/about`      | About (profile + career timeline)           | SSG (per locale) | UI dictionary + career Markdown (`content/about`) | implemented |
 
 All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
 (`/`, `/about`) is redirected by `proxy.ts` — see section 7.
@@ -41,19 +41,23 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 
 ## 3. Directory responsibilities (decided)
 
-| Path                   | Responsibility                                                    |
-| ---------------------- | ----------------------------------------------------------------- |
-| `apps/web/app/`        | Route segments ONLY (App Router). No non-route code here.         |
-| `apps/web/components/` | Site-specific composite UI (Hero, ProjectCard). NOT generic.      |
-| `apps/web/constants/`  | Static app data/config (e.g. section definitions).                |
-| `apps/web/lib/`        | App logic: data fetching, the Notion data layer, i18n, helpers.   |
-| `apps/web/lib/i18n/`   | Locale config + server-side UI dictionaries (see section 7).      |
-| `apps/web/proxy.ts`    | Locale detection + redirect (middleware).                         |
-| `packages/ui/`         | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`. |
+| Path                    | Responsibility                                                         |
+| ----------------------- | ---------------------------------------------------------------------- |
+| `apps/web/app/`         | Route segments ONLY (App Router). No non-route code here.              |
+| `apps/web/components/`  | Site-specific composite UI (Hero, ProjectCard). NOT generic.           |
+| `apps/web/constants/`   | Static app data/config (e.g. section definitions).                     |
+| `apps/web/content/`     | Authored Markdown content, per locale (e.g. `about/career.<lang>.md`). |
+| `apps/web/lib/`         | App logic: data fetching, the Notion data layer, i18n, helpers.        |
+| `apps/web/lib/i18n/`    | Locale config + server-side UI dictionaries (see section 7).           |
+| `apps/web/lib/content/` | Loads + parses authored Markdown from `content/` (e.g. career).        |
+| `apps/web/proxy.ts`     | Locale detection + redirect (middleware).                              |
+| `packages/ui/`          | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`.      |
 
 The root `app/layout.tsx` owns `<html>`/`<body>`, the app shell (providers,
 language switcher), the `SectionProvider` (active-section state) and the animated
-section background (`SectionBackground`, which reads that state);
+section background (`SectionBackground`, which spans every route — the pager
+follows the active section, the note route shows Notes, and other sub-pages like
+`/about` show the Home gradient, so the backdrop stays continuous);
 `app/[lang]/layout.tsx` only validates the locale and syncs `<html lang>`.
 Keeping the context AND the background in the root layout means neither remounts
 on locale switches or note navigation (see section 7) — otherwise the active
@@ -109,6 +113,11 @@ The `Work` and `Note` types are the internal models for a portfolio work and a
 note, defined in `apps/web/lib/notion/types.ts` and returned by the data layer
 (`getWorks`, `getNotes` / `getNote`). They are the contract components render —
 raw Notion shapes never leak out. Contact has no data model (static form).
+
+The About page's career/education history is NOT from Notion — it is authored
+Markdown in `content/about/career.<lang>.md`, parsed by `lib/content` into the
+`CareerItem` type (a `[work]` / `[study]` tag, period, title, and summary). See
+`apps/web/content/README.md` for the authoring convention.
 (If this section grows, split into `docs/data-model.md`.)
 
 ## 6. Open decisions (TBD — fill in as decided)

@@ -13,7 +13,7 @@
     "contact": "Contact"
   },
   "about": {
-    "greeting": "Hello, I'm Tatsuya",
+    "greeting": ["Hello, I'm", "Tatsuya"],
     "bio": "A software developer focused on front-end architecture and clean, accessible UI.",
     "links": {
       "calendar": "Calendar",

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useSection } from '@/components/provider'
 import { sections } from '@/constants'
 
+const HOME_INDEX = sections.findIndex((section) => section.id === 'home')
 const NOTES_INDEX = sections.findIndex((section) => section.id === 'notes')
 
 export function SectionBackground() {
@@ -12,11 +13,7 @@ export function SectionBackground() {
   const { index } = useSection()
 
   const segment = pathname.split('/')[2] ?? ''
-  const onPager = segment === ''
-  const onNote = segment === 'notes'
-  if (!onPager && !onNote) return null
-
-  const activeIndex = onNote ? NOTES_INDEX : index
+  const activeIndex = segment === '' ? index : segment === 'notes' ? NOTES_INDEX : HOME_INDEX
 
   return (
     <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
