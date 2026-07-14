@@ -2,7 +2,6 @@ import { getGithubToken, getGithubUsername } from './client'
 import type { ContributionCalendar, ContributionLevel, GithubSkill, LanguageStat } from './types'
 
 const REVALIDATE_SECONDS = 3600
-const TOP_LANGUAGES = 6
 
 const LEVEL_BY_ENUM: Record<string, ContributionLevel> = {
   NONE: 0,
@@ -100,7 +99,6 @@ function mapLanguages(raw: GithubGraphQLResponse['data']): LanguageStat[] {
 
   return [...totals.entries()]
     .sort((a, b) => b[1].size - a[1].size)
-    .slice(0, TOP_LANGUAGES)
     .map(([name, entry]) => ({
       name,
       color: entry.color,
