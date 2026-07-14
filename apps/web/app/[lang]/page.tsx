@@ -13,7 +13,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
     <SectionPager
       content={{
         home: <HomeSection dict={dict.home} lang={lang} />,
-        works: <WorksSection />,
+        works: <WorksSection lang={lang} />,
         notes: <NotesSection lang={lang} />,
         contact: <ContactSection />,
       }}

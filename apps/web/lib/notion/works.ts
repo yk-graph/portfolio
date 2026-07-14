@@ -11,7 +11,7 @@ import { getWorksDataSourceId, getNotionClient } from './client'
 import { mapPageToWork } from './works-mapper'
 import type { Work } from './types'
 
-export async function getWorks(): Promise<Work[]> {
+export async function getWorks(lang: string): Promise<Work[]> {
   try {
     const response: QueryDataSourceResponse = await getNotionClient().dataSources.query({
       data_source_id: getWorksDataSourceId(),
@@ -21,7 +21,7 @@ export async function getWorks(): Promise<Work[]> {
     const workPages: PageObjectResponse[] = response.results.filter(isFullPage)
     return await Promise.all(
       workPages.map(async (page) => {
-        const work = mapPageToWork(page)
+        const work = mapPageToWork(page, lang)
 
         if (!work.thumbnail) return work
 
