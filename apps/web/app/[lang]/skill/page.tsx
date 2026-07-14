@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { BackNavigation } from '@/components/common'
-import { ContributionCalendar, LanguageList } from '@/components/skill'
+import { ContributionCalendar, FrameworkCards, LanguageList } from '@/components/skill'
 import { skillDescription } from '@/constants'
 import { getGithubSkill } from '@/lib/github'
 import { hasLocale } from '@/lib/i18n'
@@ -17,7 +17,7 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
 
-  const { calendar, languages } = await getGithubSkill()
+  const { calendar, languages, frameworks } = await getGithubSkill()
 
   return (
     <div className="min-h-dvh overflow-hidden text-white">
@@ -38,8 +38,14 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
           <ContributionCalendar calendar={calendar} />
         </section>
 
-        <section className="my-4 sm:my-8">
+        <section className="my-4 flex flex-col gap-4 sm:my-8">
+          <h2 className="font-heading text-2xl font-black">Languages</h2>
           <LanguageList languages={languages} />
+        </section>
+
+        <section className="my-4 flex flex-col gap-4 sm:my-8">
+          <h2 className="font-heading text-2xl font-black">Frameworks</h2>
+          <FrameworkCards frameworks={frameworks} />
         </section>
       </div>
     </div>

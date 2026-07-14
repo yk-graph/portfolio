@@ -1,5 +1,5 @@
 import { getGithubToken, getGithubUsername } from './client'
-import type { ContributionCalendar, ContributionLevel, GithubSkill, LanguageStat } from './types'
+import type { ContributionCalendar, ContributionLevel, FrameworkStat, GithubSkill, LanguageStat } from './types'
 
 const REVALIDATE_SECONDS = 3600
 
@@ -14,6 +14,7 @@ const LEVEL_BY_ENUM: Record<string, ContributionLevel> = {
 const EMPTY_SKILL: GithubSkill = {
   calendar: { totalContributions: 0, weeks: [] },
   languages: [],
+  frameworks: [],
 }
 
 const QUERY = `
@@ -38,6 +39,26 @@ const QUERY = `
               name
             }
           }
+          pkg: object(expression: "HEAD:package.json") {
+            ... on Blob {
+              text
+            }
+          }
+          composer: object(expression: "HEAD:composer.json") {
+            ... on Blob {
+              text
+            }
+          }
+          wpConfig: object(expression: "HEAD:wp-config.php") {
+            ... on Blob {
+              byteSize
+            }
+          }
+          wpSample: object(expression: "HEAD:wp-config-sample.php") {
+            ... on Blob {
+              byteSize
+            }
+          }
         }
       }
     }
@@ -56,6 +77,10 @@ type GithubGraphQLResponse = {
       repositories: {
         nodes: {
           languages: { nodes: { name: string }[] }
+          pkg: { text: string } | null
+          composer: { text: string } | null
+          wpConfig: { byteSize: number } | null
+          wpSample: { byteSize: number } | null
         }[]
       }
     }
@@ -91,6 +116,61 @@ function mapLanguages(raw: GithubGraphQLResponse['data']): LanguageStat[] {
     .sort((a, b) => b.repoCount - a.repoCount || a.name.localeCompare(b.name))
 }
 
+type RepoNode = NonNullable<GithubGraphQLResponse['data']>['user']['repositories']['nodes'][number]
+
+function parseNodeDeps(text: string | null): Record<string, string> {
+  if (!text) return {}
+  try {
+    const json = JSON.parse(text)
+    return { ...json.dependencies, ...json.devDependencies }
+  } catch {
+    return {}
+  }
+}
+
+function parseComposerPackages(text: string | null): string[] {
+  if (!text) return []
+  try {
+    const json = JSON.parse(text)
+    return Object.keys({ ...json.require, ...json['require-dev'] })
+  } catch {
+    return []
+  }
+}
+
+function detectFrameworks(repo: RepoNode): string[] {
+  const deps = parseNodeDeps(repo.pkg?.text ?? null)
+  const composer = parseComposerPackages(repo.composer?.text ?? null)
+  const found: string[] = []
+
+  if (deps.react) found.push('React')
+  if (deps.next) found.push('Next.js')
+  if (deps.nuxt) found.push('Nuxt')
+  if (deps.vue) found.push('Vue')
+  if (deps.express) found.push('Express')
+  if (deps.astro) found.push('Astro')
+  if (composer.some((name) => name.startsWith('laravel/'))) found.push('Laravel')
+  if (repo.wpConfig || repo.wpSample || composer.some((name) => name.includes('wordpress'))) {
+    found.push('WordPress')
+  }
+
+  return found
+}
+
+function mapFrameworks(raw: GithubGraphQLResponse['data']): FrameworkStat[] {
+  const repoCounts = new Map<string, number>()
+
+  for (const repo of raw!.user.repositories.nodes) {
+    for (const framework of detectFrameworks(repo)) {
+      repoCounts.set(framework, (repoCounts.get(framework) ?? 0) + 1)
+    }
+  }
+
+  return [...repoCounts.entries()]
+    .map(([name, repoCount]) => ({ name, repoCount }))
+    .sort((a, b) => b.repoCount - a.repoCount || a.name.localeCompare(b.name))
+}
+
 export async function getGithubSkill(): Promise<GithubSkill> {
   try {
     const response = await fetch('https://api.github.com/graphql', {
@@ -98,6 +178,7 @@ export async function getGithubSkill(): Promise<GithubSkill> {
       headers: {
         Authorization: `Bearer ${getGithubToken()}`,
         'Content-Type': 'application/json',
+        'User-Agent': 'portfolio-skill-page',
       },
       body: JSON.stringify({ query: QUERY, variables: { login: getGithubUsername() } }),
       next: { revalidate: REVALIDATE_SECONDS },
@@ -117,6 +198,7 @@ export async function getGithubSkill(): Promise<GithubSkill> {
     return {
       calendar: mapCalendar(json.data),
       languages: mapLanguages(json.data),
+      frameworks: mapFrameworks(json.data),
     }
   } catch (error: unknown) {
     console.error('getGithubSkill: unexpected error', { error })
