@@ -38,7 +38,7 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
           <ContributionCalendar calendar={calendar} />
         </section>
 
-        <section className="my-4 max-w-2xl sm:my-8">
+        <section className="my-4 sm:my-8">
           <LanguageBars languages={languages} />
         </section>
       </div>
