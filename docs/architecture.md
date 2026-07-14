@@ -18,12 +18,12 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route                | Page                                        | Rendering        | Data source                                       | Status      |
-| -------------------- | ------------------------------------------- | ---------------- | ------------------------------------------------- | ----------- |
-| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)   | SSG (per locale) | Notion works + notes data source + UI dictionary  | implemented |
-| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list) | SSG (per locale) | Notion note (per-locale body) + notes list        | implemented |
-| `/[lang]/about`      | About (profile + career timeline)           | SSG (per locale) | UI dictionary + career Markdown (`content/about`) | implemented |
-| `/[lang]/skill`      | Skill (GitHub contribution calendar + top-language bars) | ISR (per locale, revalidate 1h) | GitHub GraphQL (`lib/github`) | implemented |
+| Route                | Page                                                     | Rendering                       | Data source                                       | Status      |
+| -------------------- | -------------------------------------------------------- | ------------------------------- | ------------------------------------------------- | ----------- |
+| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)                | SSG (per locale)                | Notion works + notes data source + UI dictionary  | implemented |
+| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list)              | SSG (per locale)                | Notion note (per-locale body) + notes list        | implemented |
+| `/[lang]/about`      | About (profile + career timeline)                        | SSG (per locale)                | UI dictionary + career Markdown (`content/about`) | implemented |
+| `/[lang]/skill`      | Skill (GitHub contribution calendar + top-language bars) | ISR (per locale, revalidate 1h) | GitHub GraphQL (`lib/github`)                     | implemented |
 
 All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
 (`/`, `/about`) is redirected by `proxy.ts` — see section 7.
