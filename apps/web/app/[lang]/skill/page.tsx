@@ -31,10 +31,7 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
             Skill from Github
           </h1>
 
-          <div className="flex flex-col gap-1 text-lg leading-relaxed text-white/80">
-            <p>{skillDescription.en}</p>
-            <p>{skillDescription.ja}</p>
-          </div>
+          <p className="text-lg leading-relaxed text-white/80">{skillDescription[lang]}</p>
         </section>
 
         <section className="mt-16 sm:mt-24">
