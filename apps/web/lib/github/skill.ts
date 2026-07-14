@@ -33,13 +33,9 @@ const QUERY = `
       }
       repositories(first: 100, ownerAffiliations: OWNER, isFork: false, orderBy: { field: PUSHED_AT, direction: DESC }) {
         nodes {
-          languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
-            edges {
-              size
-              node {
-                name
-                color
-              }
+          languages(first: 20) {
+            nodes {
+              name
             }
           }
         }
@@ -59,7 +55,7 @@ type GithubGraphQLResponse = {
       }
       repositories: {
         nodes: {
-          languages: { edges: { size: number; node: { name: string; color: string | null } }[] }
+          languages: { nodes: { name: string }[] }
         }[]
       }
     }
@@ -82,28 +78,17 @@ function mapCalendar(raw: GithubGraphQLResponse['data']): ContributionCalendar {
 }
 
 function mapLanguages(raw: GithubGraphQLResponse['data']): LanguageStat[] {
-  const totals = new Map<string, { color: string; size: number }>()
+  const repoCounts = new Map<string, number>()
 
   for (const repo of raw!.user.repositories.nodes) {
-    for (const edge of repo.languages.edges) {
-      const current = totals.get(edge.node.name)
-      totals.set(edge.node.name, {
-        color: edge.node.color ?? '#7f9cd1',
-        size: (current?.size ?? 0) + edge.size,
-      })
+    for (const language of repo.languages.nodes) {
+      repoCounts.set(language.name, (repoCounts.get(language.name) ?? 0) + 1)
     }
   }
 
-  const grandTotal = [...totals.values()].reduce((sum, entry) => sum + entry.size, 0)
-  if (grandTotal === 0) return []
-
-  return [...totals.entries()]
-    .sort((a, b) => b[1].size - a[1].size)
-    .map(([name, entry]) => ({
-      name,
-      color: entry.color,
-      percentage: Math.round((entry.size / grandTotal) * 100),
-    }))
+  return [...repoCounts.entries()]
+    .map(([name, repoCount]) => ({ name, repoCount }))
+    .sort((a, b) => b.repoCount - a.repoCount || a.name.localeCompare(b.name))
 }
 
 export async function getGithubSkill(): Promise<GithubSkill> {

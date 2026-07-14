@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { BackNavigation } from '@/components/common'
-import { ContributionCalendar, LanguageBars } from '@/components/skill'
+import { ContributionCalendar, LanguageList } from '@/components/skill'
 import { skillDescription } from '@/constants'
 import { getGithubSkill } from '@/lib/github'
 import { hasLocale } from '@/lib/i18n'
@@ -39,7 +39,7 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
         </section>
 
         <section className="my-4 sm:my-8">
-          <LanguageBars languages={languages} />
+          <LanguageList languages={languages} />
         </section>
       </div>
     </div>

@@ -13,8 +13,7 @@ export type ContributionCalendar = {
 
 export type LanguageStat = {
   name: string
-  color: string
-  percentage: number
+  repoCount: number
 }
 
 export type GithubSkill = {
