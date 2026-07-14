@@ -1,3 +1,5 @@
+export * from './section-sync'
+export * from './section-background'
 export * from './section-pager'
 export * from './home-section'
 export * from './notes'

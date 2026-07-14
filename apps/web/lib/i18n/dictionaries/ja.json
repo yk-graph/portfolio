@@ -13,7 +13,7 @@
     "contact": "お問い合わせ"
   },
   "about": {
-    "greeting": "こんにちは、Tatsuya です",
+    "greeting": ["こんにちは、", "Tatsuya です"],
     "bio": "フロントエンドの設計と、クリーンでアクセシブルな UI を得意とするソフトウェア開発者です。",
     "links": {
       "calendar": "カレンダー",

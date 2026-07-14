@@ -1,9 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { navLinks } from './nav-links'
+import { Icon } from './icons'
 
 export function BackNavigation() {
   const pathname = usePathname()
@@ -19,34 +18,15 @@ export function BackNavigation() {
   }
 
   return (
-    <nav aria-label="Sub-page" className="flex items-center justify-between gap-8">
+    <nav aria-label="Sub-page">
       <button
         type="button"
         onClick={handleBack}
-        className="cursor-pointer font-heading text-sm font-bold tracking-widest text-neutral-600 transition-colors hover:text-foreground dark:text-neutral-400"
+        className="flex cursor-pointer items-center gap-2 font-heading text-sm font-bold tracking-widest text-white/70 transition-colors hover:text-white"
       >
-        ← BACK
+        <Icon name="arrowLeft" size={16} />
+        BACK
       </button>
-
-      <ul className="flex items-center gap-8">
-        {navLinks.map(({ label, href }) => {
-          const localizedHref = `/${locale}${href}`
-          const isActive = pathname === localizedHref || pathname.startsWith(`${localizedHref}/`)
-          return (
-            <li key={label}>
-              <Link
-                href={localizedHref}
-                aria-current={isActive ? 'page' : undefined}
-                className={`font-heading text-sm font-bold tracking-widest transition-opacity hover:opacity-60 ${
-                  isActive ? 'text-foreground underline underline-offset-8' : 'text-neutral-600 dark:text-neutral-400'
-                }`}
-              >
-                {label}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
     </nav>
   )
 }
