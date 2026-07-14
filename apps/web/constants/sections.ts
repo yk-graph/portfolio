@@ -35,18 +35,3 @@ export const sections: {
       'linear-gradient(315deg, var(--color-brand-cherry), var(--color-brand-cherry-dark), var(--color-brand-cherry), var(--color-brand-cherry-light), var(--color-brand-cherry))',
   },
 ]
-
-function currentSegment(pathname: string) {
-  return pathname.split('/')[2] ?? ''
-}
-
-export function isSectionPath(pathname: string): boolean {
-  const current = currentSegment(pathname)
-  return sections.some((section) => (section.id === 'home' ? current === '' : section.id === current))
-}
-
-export function sectionIndexFromPath(pathname: string): number {
-  const current = currentSegment(pathname)
-  const found = sections.findIndex((section) => (section.id === 'home' ? current === '' : section.id === current))
-  return found === -1 ? 0 : found
-}
