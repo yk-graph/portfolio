@@ -102,9 +102,10 @@ The Skill page pulls the contribution calendar and language breakdown from the
 GitHub GraphQL API. Same rule as Notion: components never call GitHub — access
 goes through the data layer in `lib/github`, which maps the raw GraphQL shape to
 internal types (`ContributionCalendar`, `LanguageStat`) and is the only place
-that knows about GitHub. Auth is a Personal Access Token (`GITHUB_TOKEN`, `repo`
-scope so private contributions count) plus `GITHUB_USERNAME`, both server-only
-env vars. The page is **ISR (revalidate 1h)** — "live from GitHub" without an
+that knows about GitHub. Auth is a Personal Access Token (`GH_TOKEN`, `repo`
+scope so private contributions count) plus `GH_USERNAME`, both server-only
+env vars (the `GITHUB_` prefix is reserved by GitHub Actions secrets, so `GH_`
+is used). The page is **ISR (revalidate 1h)** — "live from GitHub" without an
 SSR request cost on every visit; on a fetch/GraphQL error the data layer returns
 an empty result so the build/render never crashes.
 
