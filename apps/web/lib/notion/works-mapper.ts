@@ -5,8 +5,11 @@ import type { Work } from './types'
 
 const PROP = {
   titleEn: 'Title EN',
+  titleJa: 'Title JA',
   summaryEn: 'Summary EN',
+  sammaryJa: 'Summary JA',
   descriptionEn: 'Description EN',
+  descriptionJa: 'Description JA',
   tags: 'Tags',
   thumbnail: 'Thumbnail',
   liveUrl: 'Live URL',
@@ -15,14 +18,14 @@ const PROP = {
   updatedAt: 'Updated Time',
 } as const
 
-export function mapPageToWork(page: PageObjectResponse): Work {
+export function mapPageToWork(page: PageObjectResponse, lang: string): Work {
   const props = page.properties
 
   return {
     id: page.id,
-    title: getTitle(props[PROP.titleEn]),
-    summary: getText(props[PROP.summaryEn]),
-    description: getText(props[PROP.descriptionEn]) || undefined,
+    title: lang === 'ja' ? getText(props[PROP.titleJa]) : getTitle(props[PROP.titleEn]),
+    summary: lang === 'ja' ? getText(props[PROP.sammaryJa]) : getText(props[PROP.summaryEn]),
+    description: lang === 'ja' ? getText(props[PROP.descriptionJa]) : getText(props[PROP.descriptionEn]),
     tags: getMultiSelect(props[PROP.tags]),
     thumbnail: getFileUrl(props[PROP.thumbnail]),
     liveUrl: getUrl(props[PROP.liveUrl]),
