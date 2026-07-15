@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { BackNavigation } from '@/components/common'
+import { BackNavigation, ScrollReveal } from '@/components/common'
 import { ContributionCalendar, LanguageList, TechStack } from '@/components/skill'
 import { getGithubSkill } from '@/lib/github'
 import { hasLocale } from '@/lib/i18n'
@@ -35,19 +35,19 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
           <p className="text-lg leading-relaxed text-white/80">{t.description}</p>
         </section>
 
-        <section className="my-4 sm:my-8">
+        <ScrollReveal className="my-4 sm:my-8">
           <ContributionCalendar calendar={calendar} contributionsLabel={t.contributions} profileUrl={profileUrl} />
-        </section>
+        </ScrollReveal>
 
-        <section className="my-4 flex flex-col gap-4 sm:my-8">
+        <ScrollReveal className="my-4 flex flex-col gap-4 sm:my-8">
           <h2 className="font-heading text-2xl font-black">{t.languages}</h2>
           <LanguageList languages={languages} />
-        </section>
+        </ScrollReveal>
 
-        <section className="my-4 flex flex-col gap-4 sm:my-8">
+        <ScrollReveal className="my-4 flex flex-col gap-4 sm:my-8">
           <h2 className="font-heading text-2xl font-black">{t.techStack}</h2>
           <TechStack />
-        </section>
+        </ScrollReveal>
       </div>
     </div>
   )
