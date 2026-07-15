@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { BackNavigation } from '@/components/common'
-import { ContributionCalendar, LanguageList } from '@/components/skill'
+import { ContributionCalendar, LanguageList, TechStack } from '@/components/skill'
 import { getGithubSkill } from '@/lib/github'
 import { hasLocale } from '@/lib/i18n'
 import { getDictionary } from '@/lib/i18n/dictionaries'
@@ -33,6 +33,11 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
           </h1>
 
           <p className="text-lg leading-relaxed text-white/80">{t.description}</p>
+        </section>
+
+        <section className="my-4 flex flex-col gap-4 sm:my-8">
+          <h2 className="font-heading text-2xl font-black">{t.techStack}</h2>
+          <TechStack />
         </section>
 
         <section className="my-4 sm:my-8">
