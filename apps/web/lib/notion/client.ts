@@ -22,3 +22,9 @@ export function getNotesDataSourceId(): string {
   if (!id) throw new Error('NOTION_NOTES_DATA_SOURCE_ID is not set.')
   return id
 }
+
+export function getNotionWebhookSecret(): string {
+  const secret = process.env.NOTION_WEBHOOK_SECRET
+  if (!secret) throw new Error('NOTION_WEBHOOK_SECRET is not set.')
+  return secret
+}
