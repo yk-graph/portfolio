@@ -24,6 +24,7 @@
   "skill": {
     "description": "This information is fetched live from the latest data on GitHub.",
     "contributions": "{count} contributions in the last year",
-    "languages": "Languages"
+    "languages": "Languages",
+    "techStack": "Tech Stack"
   }
 }
