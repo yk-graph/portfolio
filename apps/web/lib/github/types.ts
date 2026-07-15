@@ -25,4 +25,5 @@ export type GithubSkill = {
   calendar: ContributionCalendar
   languages: LanguageStat[]
   frameworks: FrameworkStat[]
+  profileUrl: string
 }

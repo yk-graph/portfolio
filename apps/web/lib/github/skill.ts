@@ -2,6 +2,7 @@ import { getGithubToken, getGithubUsername } from './client'
 import type { ContributionCalendar, ContributionLevel, FrameworkStat, GithubSkill, LanguageStat } from './types'
 
 const REVALIDATE_SECONDS = 3600
+const TOP_LANGUAGES = 10
 
 const LEVEL_BY_ENUM: Record<string, ContributionLevel> = {
   NONE: 0,
@@ -15,6 +16,7 @@ const EMPTY_SKILL: GithubSkill = {
   calendar: { totalContributions: 0, weeks: [] },
   languages: [],
   frameworks: [],
+  profileUrl: '',
 }
 
 const QUERY = `
@@ -114,6 +116,7 @@ function mapLanguages(raw: GithubGraphQLResponse['data']): LanguageStat[] {
   return [...repoCounts.entries()]
     .map(([name, repoCount]) => ({ name, repoCount }))
     .sort((a, b) => b.repoCount - a.repoCount || a.name.localeCompare(b.name))
+    .slice(0, TOP_LANGUAGES)
 }
 
 type RepoNode = NonNullable<GithubGraphQLResponse['data']>['user']['repositories']['nodes'][number]
@@ -199,6 +202,7 @@ export async function getGithubSkill(): Promise<GithubSkill> {
       calendar: mapCalendar(json.data),
       languages: mapLanguages(json.data),
       frameworks: mapFrameworks(json.data),
+      profileUrl: `https://github.com/${getGithubUsername()}`,
     }
   } catch (error: unknown) {
     console.error('getGithubSkill: unexpected error', { error })
