@@ -24,7 +24,6 @@
   "skill": {
     "description": "この情報は GitHub の最新データからリアルタイムに取得しています。",
     "contributions": "過去1年間で {count} コントリビューション",
-    "languages": "言語",
-    "frameworks": "フレームワーク"
+    "languages": "言語"
   }
 }
