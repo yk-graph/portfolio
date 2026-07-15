@@ -35,11 +35,6 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
           <p className="text-lg leading-relaxed text-white/80">{t.description}</p>
         </section>
 
-        <section className="my-4 flex flex-col gap-4 sm:my-8">
-          <h2 className="font-heading text-2xl font-black">{t.techStack}</h2>
-          <TechStack />
-        </section>
-
         <section className="my-4 sm:my-8">
           <ContributionCalendar calendar={calendar} contributionsLabel={t.contributions} profileUrl={profileUrl} />
         </section>
@@ -47,6 +42,11 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
         <section className="my-4 flex flex-col gap-4 sm:my-8">
           <h2 className="font-heading text-2xl font-black">{t.languages}</h2>
           <LanguageList languages={languages} />
+        </section>
+
+        <section className="my-4 flex flex-col gap-4 sm:my-8">
+          <h2 className="font-heading text-2xl font-black">{t.techStack}</h2>
+          <TechStack />
         </section>
       </div>
     </div>
