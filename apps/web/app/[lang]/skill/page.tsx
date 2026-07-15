@@ -3,9 +3,9 @@ import { notFound } from 'next/navigation'
 
 import { BackNavigation } from '@/components/common'
 import { ContributionCalendar, FrameworkCards, LanguageList } from '@/components/skill'
-import { skillDescription } from '@/constants'
 import { getGithubSkill } from '@/lib/github'
 import { hasLocale } from '@/lib/i18n'
+import { getDictionary } from '@/lib/i18n/dictionaries'
 
 export const metadata: Metadata = {
   title: 'Skill',
@@ -17,7 +17,8 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
 
-  const { calendar, languages, frameworks } = await getGithubSkill()
+  const t = (await getDictionary(lang)).skill
+  const { calendar, languages, frameworks, profileUrl } = await getGithubSkill()
 
   return (
     <div className="min-h-dvh overflow-hidden text-white">
@@ -31,20 +32,20 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
             Skill from Github
           </h1>
 
-          <p className="text-lg leading-relaxed text-white/80">{skillDescription[lang]}</p>
+          <p className="text-lg leading-relaxed text-white/80">{t.description}</p>
         </section>
 
         <section className="my-4 sm:my-8">
-          <ContributionCalendar calendar={calendar} />
+          <ContributionCalendar calendar={calendar} contributionsLabel={t.contributions} profileUrl={profileUrl} />
         </section>
 
         <section className="my-4 flex flex-col gap-4 sm:my-8">
-          <h2 className="font-heading text-2xl font-black">Languages</h2>
+          <h2 className="font-heading text-2xl font-black">{t.languages}</h2>
           <LanguageList languages={languages} />
         </section>
 
         <section className="my-4 flex flex-col gap-4 sm:my-8">
-          <h2 className="font-heading text-2xl font-black">Frameworks</h2>
+          <h2 className="font-heading text-2xl font-black">{t.frameworks}</h2>
           <FrameworkCards frameworks={frameworks} />
         </section>
       </div>
