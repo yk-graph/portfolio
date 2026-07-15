@@ -18,11 +18,12 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route                | Page                                        | Rendering        | Data source                                       | Status      |
-| -------------------- | ------------------------------------------- | ---------------- | ------------------------------------------------- | ----------- |
-| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)   | SSG (per locale) | Notion works + notes data source + UI dictionary  | implemented |
-| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list) | SSG (per locale) | Notion note (per-locale body) + notes list        | implemented |
-| `/[lang]/about`      | About (profile + career timeline)           | SSG (per locale) | UI dictionary + career Markdown (`content/about`) | implemented |
+| Route                | Page                                                     | Rendering                       | Data source                                       | Status      |
+| -------------------- | -------------------------------------------------------- | ------------------------------- | ------------------------------------------------- | ----------- |
+| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)                | SSG (per locale)                | Notion works + notes data source + UI dictionary  | implemented |
+| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list)              | SSG (per locale)                | Notion note (per-locale body) + notes list        | implemented |
+| `/[lang]/about`      | About (profile + career timeline)                        | SSG (per locale)                | UI dictionary + career Markdown (`content/about`) | implemented |
+| `/[lang]/skill`      | Skill (GitHub contribution calendar + top-language bars) | ISR (per locale, revalidate 1h) | GitHub GraphQL (`lib/github`)                     | implemented |
 
 All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
 (`/`, `/about`) is redirected by `proxy.ts` — see section 7.
@@ -94,6 +95,19 @@ app/ pages (SSG/ISR)  →  components render internal types
 Why: if the data layer is the only place that knows Notion's shape,
 switching CMS later touches one directory, not every component.
 Internal types are the contract; the Notion mapping is an implementation detail.
+
+### GitHub as a second external source (decided)
+
+The Skill page pulls the contribution calendar and language breakdown from the
+GitHub GraphQL API. Same rule as Notion: components never call GitHub — access
+goes through the data layer in `lib/github`, which maps the raw GraphQL shape to
+internal types (`ContributionCalendar`, `LanguageStat`) and is the only place
+that knows about GitHub. Auth is a Personal Access Token (`GH_TOKEN`, `repo`
+scope so private contributions count) plus `GH_USERNAME`, both server-only
+env vars (the `GITHUB_` prefix is reserved by GitHub Actions secrets, so `GH_`
+is used). The page is **ISR (revalidate 1h)** — "live from GitHub" without an
+SSR request cost on every visit; on a fetch/GraphQL error the data layer returns
+an empty result so the build/render never crashes.
 
 ### Image persistence (decided)
 

@@ -48,7 +48,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
           />
         </section>
 
-        <section className="mt-16 sm:mt-24">
+        <section className="my-16 sm:my-24">
           <CareerTimeline items={career} />
         </section>
       </div>
