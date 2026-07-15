@@ -52,6 +52,8 @@ jobs:
             R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}
             R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}
             R2_BUCKET=${{ secrets.R2_BUCKET }}
+            GH_TOKEN=${{ secrets.GH_TOKEN }}
+            GH_USERNAME=${{ secrets.GH_USERNAME }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
