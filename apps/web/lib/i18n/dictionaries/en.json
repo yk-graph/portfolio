@@ -20,5 +20,11 @@
       "github": "GitHub",
       "linkedin": "LinkedIn"
     }
+  },
+  "skill": {
+    "description": "This information is fetched live from the latest data on GitHub.",
+    "contributions": "{count} contributions in the last year",
+    "languages": "Languages",
+    "techStack": "Tech Stack"
   }
 }

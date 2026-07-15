@@ -1,0 +1,117 @@
+import type { IconType } from 'react-icons'
+import { FaAws, FaMasksTheater } from 'react-icons/fa6'
+import {
+  SiAstro,
+  SiCloudflare,
+  SiCss,
+  SiDjango,
+  SiDocker,
+  SiDrizzle,
+  SiEslint,
+  SiExpress,
+  SiFigma,
+  SiFirebase,
+  SiFramer,
+  SiGithub,
+  SiGithubactions,
+  SiGitlab,
+  SiGooglecloud,
+  SiGraphql,
+  SiHtml5,
+  SiJavascript,
+  SiJest,
+  SiMysql,
+  SiNestjs,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiNotion,
+  SiNuxt,
+  SiPhp,
+  SiPnpm,
+  SiPostgresql,
+  SiPrettier,
+  SiPrisma,
+  SiPython,
+  SiReact,
+  SiRemix,
+  SiRuby,
+  SiRubyonrails,
+  SiSass,
+  SiStorybook,
+  SiTailwindcss,
+  SiTurborepo,
+  SiTypescript,
+  SiVercel,
+  SiVite,
+  SiVitest,
+  SiVuedotjs,
+  SiWordpress,
+} from 'react-icons/si'
+
+type Tech = { name: string; Icon: IconType }
+
+const TECH_STACK: Tech[] = [
+  { name: 'HTML5', Icon: SiHtml5 },
+  { name: 'CSS', Icon: SiCss },
+  { name: 'JavaScript', Icon: SiJavascript },
+  { name: 'TypeScript', Icon: SiTypescript },
+  { name: 'React', Icon: SiReact },
+  { name: 'Vue', Icon: SiVuedotjs },
+  { name: 'Nuxt', Icon: SiNuxt },
+  { name: 'Next.js', Icon: SiNextdotjs },
+  { name: 'Remix', Icon: SiRemix },
+  { name: 'Astro', Icon: SiAstro },
+  { name: 'Sass', Icon: SiSass },
+  { name: 'Tailwind CSS', Icon: SiTailwindcss },
+  { name: 'Storybook', Icon: SiStorybook },
+  { name: 'Node.js', Icon: SiNodedotjs },
+  { name: 'Express', Icon: SiExpress },
+  { name: 'NestJS', Icon: SiNestjs },
+  { name: 'Ruby', Icon: SiRuby },
+  { name: 'Rails', Icon: SiRubyonrails },
+  { name: 'PHP', Icon: SiPhp },
+  { name: 'WordPress', Icon: SiWordpress },
+  { name: 'Python', Icon: SiPython },
+  { name: 'Django', Icon: SiDjango },
+  { name: 'GraphQL', Icon: SiGraphql },
+  { name: 'MySQL', Icon: SiMysql },
+  { name: 'PostgreSQL', Icon: SiPostgresql },
+  { name: 'Prisma', Icon: SiPrisma },
+  { name: 'Drizzle', Icon: SiDrizzle },
+  { name: 'Firebase', Icon: SiFirebase },
+  { name: 'Jest', Icon: SiJest },
+  { name: 'Vitest', Icon: SiVitest },
+  { name: 'Playwright', Icon: FaMasksTheater },
+  { name: 'Docker', Icon: SiDocker },
+  { name: 'GitHub', Icon: SiGithub },
+  { name: 'GitHub Actions', Icon: SiGithubactions },
+  { name: 'GitLab', Icon: SiGitlab },
+  { name: 'AWS', Icon: FaAws },
+  { name: 'Google Cloud', Icon: SiGooglecloud },
+  { name: 'Vercel', Icon: SiVercel },
+  { name: 'Cloudflare', Icon: SiCloudflare },
+  { name: 'Turborepo', Icon: SiTurborepo },
+  { name: 'pnpm', Icon: SiPnpm },
+  { name: 'Vite', Icon: SiVite },
+  { name: 'Framer Motion', Icon: SiFramer },
+  { name: 'Notion', Icon: SiNotion },
+  { name: 'ESLint', Icon: SiEslint },
+  { name: 'Prettier', Icon: SiPrettier },
+  { name: 'Figma', Icon: SiFigma },
+]
+
+export function TechStack() {
+  return (
+    <ul className="flex flex-wrap gap-2.5">
+      {TECH_STACK.map(({ name, Icon }) => (
+        <li
+          key={name}
+          className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 transition-colors hover:bg-white/10"
+        >
+          <Icon size={18} className="text-white" aria-hidden />
+          <span className="font-sans text-sm font-bold">{name}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
