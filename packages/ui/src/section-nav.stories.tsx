@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { fn } from 'storybook/test'
 
 import { SectionNav } from './section-nav'
 
@@ -28,6 +29,7 @@ const meta = {
   args: {
     items,
     activeIndex: 0,
+    onSelect: fn(),
   },
 } satisfies Meta<typeof SectionNav>
 
