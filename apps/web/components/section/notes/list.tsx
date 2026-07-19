@@ -10,12 +10,8 @@ export function NotesList({ notes, lang }: { notes: Note[]; lang: string }) {
 
   return (
     <ul className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto">
-      {notes.map((note, i) => (
-        <li
-          key={note.id}
-          className="animate-rise [animation-fill-mode:backwards] motion-reduce:animate-none"
-          style={{ animationDelay: `${i * 0.08}s` }}
-        >
+      {notes.map((note) => (
+        <li key={note.id}>
           <Link
             href={`/${lang}/notes/${note.id}`}
             className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/5 p-4 transition-colors hover:bg-white/10 sm:px-6"
