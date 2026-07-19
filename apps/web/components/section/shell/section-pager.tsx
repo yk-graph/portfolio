@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 
 import { SectionNav } from '@repo/ui'
+
 import { useSection } from '@/components/provider'
 import { sections, type SectionId } from '@/constants'
 

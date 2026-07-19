@@ -6,21 +6,12 @@ export interface SectionNavItem {
 }
 
 export interface SectionNavProps {
-  /** Ordered list of sections to render as dots. */
   items: SectionNavItem[]
-  /** Index of the currently active section. */
   activeIndex: number
-  /** Called with the index of the section the user selects. */
   onSelect: (index: number) => void
-  /** Accessible label for the nav landmark. */
   label?: string
 }
 
-/**
- * A row of dot indicators for paged sections. The active dot is widened;
- * clicking a dot reports its index via `onSelect`. Fully controlled and
- * dependency-free.
- */
 export function SectionNav({ items, activeIndex, onSelect, label = 'Sections' }: SectionNavProps) {
   return (
     <nav aria-label={label} className="absolute inset-x-0 bottom-8 z-10 flex items-center justify-center gap-3">

@@ -48,16 +48,16 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 
 ## 3. Directory responsibilities (decided)
 
-| Path                    | Responsibility                                                         |
-| ----------------------- | ---------------------------------------------------------------------- |
-| `apps/web/app/`         | Route segments ONLY (App Router). No non-route code here.              |
-| `apps/web/components/`  | Site-specific composite UI (Hero, ProjectCard). NOT generic.           |
-| `apps/web/constants/`   | Static app data/config (e.g. section definitions).                     |
-| `apps/web/content/`     | Authored Markdown content, per locale (e.g. `about/career.<lang>.md`). |
-| `apps/web/lib/`         | App logic: data fetching, the Notion data layer, i18n, helpers.        |
-| `apps/web/lib/i18n/`    | Locale config + server-side UI dictionaries (see section 7).           |
-| `apps/web/lib/content/` | Loads + parses authored Markdown from `content/` (e.g. career).        |
-| `apps/web/proxy.ts`     | Locale detection + redirect (middleware); excludes `/api` + assets.    |
+| Path                    | Responsibility                                                                |
+| ----------------------- | ----------------------------------------------------------------------------- |
+| `apps/web/app/`         | Route segments ONLY (App Router). No non-route code here.                     |
+| `apps/web/components/`  | Site-specific composite UI (Hero, ProjectCard). NOT generic.                  |
+| `apps/web/constants/`   | Static app data/config (e.g. section definitions).                            |
+| `apps/web/content/`     | Authored Markdown content, per locale (e.g. `about/career.<lang>.md`).        |
+| `apps/web/lib/`         | App logic: data fetching, the Notion data layer, i18n, helpers.               |
+| `apps/web/lib/i18n/`    | Locale config + server-side UI dictionaries (see section 7).                  |
+| `apps/web/lib/content/` | Loads + parses authored Markdown from `content/` (e.g. career).               |
+| `apps/web/proxy.ts`     | Locale detection + redirect (middleware); excludes `/api` + assets.           |
 | `packages/ui/`          | Generic, reusable UI only (Button, Card, SectionNav). Imported as `@repo/ui`. |
 
 The root `app/layout.tsx` owns `<html>`/`<body>`, the app shell (providers,

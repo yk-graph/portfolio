@@ -15,8 +15,6 @@ const meta = {
   component: SectionNav,
   parameters: {
     layout: 'fullscreen',
-    // The dots are white and positioned absolutely at the bottom, so render
-    // them over a dark, full-height backdrop.
     backgrounds: { default: 'dark' },
   },
   decorators: [
@@ -47,7 +45,6 @@ function InteractiveNav(args: React.ComponentProps<typeof SectionNav>) {
   return <SectionNav {...args} activeIndex={active} onSelect={setActive} />
 }
 
-/** Clicking a dot updates the active section — the controlled pattern in use. */
 export const Interactive: Story = {
   render: (args) => <InteractiveNav {...args} />,
 }
