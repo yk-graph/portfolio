@@ -33,7 +33,7 @@ export function SectionPager({ content }: { content: Record<SectionId, React.Rea
   return (
     <motion.div
       className="fixed inset-0 overflow-hidden text-white"
-      initial={reduce ? false : { opacity: 0, y: 56 }}
+      initial={reduce || active.id !== 'home' ? false : { opacity: 0, y: 56 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
     >
