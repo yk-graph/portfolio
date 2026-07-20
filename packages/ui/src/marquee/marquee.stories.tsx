@@ -31,3 +31,17 @@ export const Fast: Story = {
     className: 'text-4xl font-black',
   },
 }
+
+export const Heading: Story = {
+  args: {
+    as: 'h2',
+    className: 'text-5xl font-black',
+  },
+}
+
+export const Responsive: Story = {
+  args: {
+    breakpoint: 'md',
+    className: 'text-4xl font-black',
+  },
+}
