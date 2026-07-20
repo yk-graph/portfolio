@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { SplashScreen } from '@repo/ui'
 
 const STORAGE_KEY = 'isFirstVisit'
 const STEP_MS = 900
@@ -42,32 +42,13 @@ export function SplashProvider({ children }: SplashProviderProps) {
   return (
     <>
       <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: blockingScript }} />
-      <AnimatePresence onExitComplete={() => document.documentElement.classList.add('splash-dismissed')}>
-        {show && (
-          <motion.div
-            key="splash"
-            data-splash-overlay
-            aria-hidden="true"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-800"
-          >
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={step}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="font-heading text-3xl font-black tracking-tight text-white"
-              >
-                {steps[step]}
-              </motion.span>
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <SplashScreen
+        visible={show}
+        label={steps[step]}
+        data-splash-overlay
+        aria-hidden="true"
+        onExitComplete={() => document.documentElement.classList.add('splash-dismissed')}
+      />
       {children}
     </>
   )
