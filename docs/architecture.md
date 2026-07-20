@@ -58,7 +58,7 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 | `apps/web/lib/i18n/`    | Locale config + server-side UI dictionaries (see section 7).                  |
 | `apps/web/lib/content/` | Loads + parses authored Markdown from `content/` (e.g. career).               |
 | `apps/web/proxy.ts`     | Locale detection + redirect (middleware); excludes `/api` + assets.           |
-| `packages/ui/`          | Generic, reusable UI only (Button, Card, SectionNav). Imported as `@repo/ui`. |
+| `packages/ui/`          | Generic, reusable UI only (SectionNav, SplashScreen). Imported as `@repo/ui`. |
 
 The root `app/layout.tsx` owns `<html>`/`<body>`, the app shell (providers,
 language switcher), the `SectionProvider` (active-section state) and the animated
