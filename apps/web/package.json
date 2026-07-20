@@ -15,7 +15,6 @@
     "@repo/ui": "workspace:*",
     "motion": "catalog:",
     "next": "16.2.9",
-    "next-themes": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-icons": "catalog:"
