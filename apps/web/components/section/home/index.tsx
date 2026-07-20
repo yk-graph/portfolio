@@ -23,7 +23,7 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
         <Marquee
           as="h1"
           breakpoint="sm"
-          className="w-full text-left font-heading text-[clamp(2.5rem,18cqi,5.5rem)] font-black leading-none sm:text-[clamp(6rem,15vw,10rem)]"
+          className="w-full font-heading text-[clamp(2.5rem,18cqi,5.5rem)] font-black leading-none sm:text-[clamp(6rem,15vw,10rem)]"
         >
           I&apos;m a Software Developer
         </Marquee>
