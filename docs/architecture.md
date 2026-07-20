@@ -18,15 +18,21 @@ CC: read this before implementing any page, route, or data-fetching logic.
 
 Each page = one row. When you add a page, add a row here BEFORE implementing.
 
-| Route                | Page                                                     | Rendering                       | Data source                                       | Status      |
-| -------------------- | -------------------------------------------------------- | ------------------------------- | ------------------------------------------------- | ----------- |
-| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)                | SSG (per locale)                | Notion works + notes data source + UI dictionary  | implemented |
-| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list)              | SSG (per locale)                | Notion note (per-locale body) + notes list        | implemented |
-| `/[lang]/about`      | About (profile + career timeline)                        | SSG (per locale)                | UI dictionary + career Markdown (`content/about`) | implemented |
-| `/[lang]/skill`      | Skill (GitHub contribution calendar + top-language bars) | ISR (per locale, revalidate 1h) | GitHub GraphQL (`lib/github`)                     | implemented |
+| Route                | Page                                                     | Rendering                        | Data source                                       | Status      |
+| -------------------- | -------------------------------------------------------- | -------------------------------- | ------------------------------------------------- | ----------- |
+| `/[lang]`            | Home/Works/Notes/Contact (one-page pager)                | SSG (per locale) + on-demand ISR | Notion works + notes data source + UI dictionary  | implemented |
+| `/[lang]/notes/[id]` | Note detail (motion drawer over notes list)              | SSG (per locale) + on-demand ISR | Notion note (per-locale body) + notes list        | implemented |
+| `/[lang]/about`      | About (profile + career timeline)                        | SSG (per locale)                 | UI dictionary + career Markdown (`content/about`) | implemented |
+| `/[lang]/skill`      | Skill (GitHub contribution calendar + top-language bars) | ISR (per locale, revalidate 1h)  | GitHub GraphQL (`lib/github`)                     | implemented |
 
 All routes are locale-prefixed (`/en`, `/ja`). A visit without a locale
-(`/`, `/about`) is redirected by `proxy.ts` — see section 7.
+(`/`, `/about`) is redirected by `proxy.ts` — see section 7. API routes under
+`/api` are NOT locale-prefixed and are excluded from that redirect.
+
+The Notion-backed pages (`/[lang]`, `/[lang]/notes/[id]`) are built as SSG but
+refreshed on demand: a Notion webhook hits `/api/revalidate`, which calls
+`revalidatePath` for both page types — so a Notion edit reaches the site without
+a redeploy and without paying an ISR/SSR cost on every visit. See section 4.
 
 **Section navigation.** Home/Works/Notes/Contact are NOT routes — they are one
 `/[lang]` page rendered by a client `SectionPager` that switches the active
@@ -51,7 +57,7 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 | `apps/web/lib/`         | App logic: data fetching, the Notion data layer, i18n, helpers.        |
 | `apps/web/lib/i18n/`    | Locale config + server-side UI dictionaries (see section 7).           |
 | `apps/web/lib/content/` | Loads + parses authored Markdown from `content/` (e.g. career).        |
-| `apps/web/proxy.ts`     | Locale detection + redirect (middleware).                              |
+| `apps/web/proxy.ts`     | Locale detection + redirect (middleware); excludes `/api` + assets.    |
 | `packages/ui/`          | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`.      |
 
 The root `app/layout.tsx` owns `<html>`/`<body>`, the app shell (providers,
@@ -109,6 +115,24 @@ is used). The page is **ISR (revalidate 1h)** — "live from GitHub" without an
 SSR request cost on every visit; on a fetch/GraphQL error the data layer returns
 an empty result so the build/render never crashes.
 
+### On-demand revalidation (Notion webhook) (decided)
+
+Notion content is SSG, so an edit would otherwise only appear on the next
+redeploy. Instead of a time-based ISR interval, revalidation is **event-driven**:
+a Notion API webhook subscription POSTs to the `/api/revalidate` route handler
+(`app/api/revalidate/route.ts`) on content changes, and the handler calls
+`revalidatePath('/[lang]', 'page')` and `revalidatePath('/[lang]/notes/[id]', 'page')`
+to rebuild every Notion-backed page.
+
+- The handler answers the one-time `verification_token` handshake (returns it so
+  it can be stored), then verifies every later event's `X-Notion-Signature`
+  (HMAC-SHA256 of the raw body, `timingSafeEqual`) against `NOTION_WEBHOOK_SECRET`.
+- `NOTION_WEBHOOK_SECRET` is **runtime-only** (the handler runs on the server), so
+  it lives in the runtime `.env` (injected via docker-compose `env_file`) — NOT a
+  build ARG like `NOTION_TOKEN`, which is needed at build time for SSG.
+- Why event-driven over an ISR interval: edits reach the site in seconds without
+  polling, and unedited pages are never re-fetched.
+
 ### Image persistence (decided)
 
 Notion image URLs are signed and expire (~1 hour), so an SSG build that
@@ -138,7 +162,8 @@ Markdown in `content/about/career.<lang>.md`, parsed by `lib/content` into the
 
 - Page structure (which pages exist): decided — see the routing table (section 2)
 - Internal type definitions: `Work` and `Note` defined; Contact is static (no model)
-- ISR revalidation interval for Notion content: TBD
+- ISR revalidation for Notion content: decided — event-driven via a Notion
+  webhook to `/api/revalidate` (no time interval); see section 4
 - Content localization of Notion data: Note bodies are localized per locale
   (`getNote` reads the locale's toggle); Works bodies TBD (see section 7)
 
@@ -150,7 +175,9 @@ Works bodies remain deferred (section 6).
 
 - **Routing**: all routes are nested under an `app/[lang]` segment. `proxy.ts`
   redirects a locale-less path, choosing the locale by
-  `NEXT_LOCALE` cookie → `Accept-Language` → default `en`.
+  `NEXT_LOCALE` cookie → `Accept-Language` → default `en`. `/api` routes and
+  static assets are excluded from the matcher, so webhook endpoints like
+  `/api/revalidate` are never locale-prefixed.
 - **UI strings**: server-side dictionaries in `lib/i18n` (`getDictionary(lang)`
   loads `en.json` / `ja.json`). No i18n library — the site only needs string
   lookup, and keeping dictionaries server-only means translations never ship in

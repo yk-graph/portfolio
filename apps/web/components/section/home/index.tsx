@@ -10,9 +10,9 @@ const pageLinks = [
 ]
 
 const snsLinks: { label: string; href: string; icon: IconName }[] = [
-  { label: 'Calendar', href: 'https://example.com/calendar', icon: 'calendar' },
-  { label: 'GitHub', href: 'https://example.com/github', icon: 'github' },
-  { label: 'LinkedIn', href: 'https://example.com/linkedin', icon: 'linkedin' },
+  { label: 'Calendar', href: 'https://calendly.com/yokokura-tatsuya/new-meeting', icon: 'calendar' },
+  { label: 'GitHub', href: 'https://github.com/yk-graph', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tatsuya-yokokura-6a8893345/', icon: 'linkedin' },
 ]
 
 export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: string }) {
