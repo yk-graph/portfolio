@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "next-themes": "^0.4.6",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

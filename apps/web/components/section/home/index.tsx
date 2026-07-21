@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { Marquee } from '@repo/ui'
 import { Icon, type IconName } from '@/components/common'
 import type { Dictionary } from '@/lib/i18n'
 
@@ -19,25 +20,13 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
   return (
     <div className="@container flex h-full w-full flex-col justify-between py-16">
       <div className="flex flex-col items-end gap-10 text-right">
-        <h1 className="w-full font-heading font-black leading-[0.95]">
-          {/* mobile */}
-          <span className="block text-[clamp(2.5rem,18cqi,5.5rem)] sm:hidden">
-            I&apos;m a
-            <br />
-            Software
-            <br />
-            Developer
-          </span>
-          {/* tablet and laptop */}
-          <span className="hidden w-full overflow-hidden sm:flex">
-            <span className="flex w-max animate-marquee whitespace-nowrap text-left text-[clamp(6rem,15vw,10rem)] leading-none motion-reduce:animate-none">
-              <span className="pr-[0.3em]">I&apos;m a Software Developer</span>
-              <span aria-hidden="true" className="pr-[0.3em]">
-                I&apos;m a Software Developer
-              </span>
-            </span>
-          </span>
-        </h1>
+        <Marquee
+          as="h1"
+          breakpoint="sm"
+          className="w-full font-heading text-[clamp(2.5rem,18cqi,5.5rem)] font-black leading-none sm:text-[clamp(6rem,15vw,10rem)]"
+        >
+          I&apos;m a Software Developer
+        </Marquee>
         <p className="pr-6 text-lg leading-relaxed text-white/70">
           {dict.description.map((line, i) => (
             <span key={i}>
