@@ -9,6 +9,7 @@ WORKDIR /app
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY apps/web/package.json ./apps/web/
 COPY packages/ui/package.json ./packages/ui/
+COPY packages/tailwind-config/package.json ./packages/tailwind-config/
 COPY packages/typescript-config/package.json ./packages/typescript-config/
 RUN pnpm install --frozen-lockfile
 
