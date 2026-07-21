@@ -1,3 +1,5 @@
+export * from './icon-circle-link'
 export * from './marquee'
 export * from './section-nav'
+export * from './slide-link'
 export * from './splash-screen'
