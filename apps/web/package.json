@@ -20,6 +20,7 @@
     "react-icons": "catalog:"
   },
   "devDependencies": {
+    "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
     "@types/node": "catalog:",
