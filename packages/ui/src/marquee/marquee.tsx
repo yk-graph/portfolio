@@ -1,4 +1,4 @@
-import { type CSSProperties, type ElementType, type ReactNode } from 'react'
+import { type ElementType, type ReactNode } from 'react'
 
 type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
@@ -18,26 +18,21 @@ const MARQUEE_AT: Record<Breakpoint, string> = {
   '2xl': 'hidden 2xl:block',
 }
 
-const keyframes = `@keyframes repo-ui-marquee{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){[data-repo-ui-marquee]{animation:none}}`
-
 export interface MarqueeProps {
   children: ReactNode
   as?: ElementType
   breakpoint?: Breakpoint
-  durationSec?: number
-  gap?: string
   className?: string
 }
 
-export function Marquee({ children, as, breakpoint, durationSec = 50, gap = '0.3em', className }: MarqueeProps) {
+export function Marquee({ children, as, breakpoint, className }: MarqueeProps) {
   const Tag = as ?? 'div'
-  const trackStyle: CSSProperties = { animation: `repo-ui-marquee ${durationSec}s linear infinite` }
 
   const track = (
     <span className={`${breakpoint ? MARQUEE_AT[breakpoint] : 'block'} w-full overflow-hidden`}>
-      <span data-repo-ui-marquee className="flex w-max whitespace-nowrap" style={trackStyle}>
-        <span style={{ paddingRight: gap }}>{children}</span>
-        <span aria-hidden="true" style={{ paddingRight: gap }}>
+      <span className="flex w-max whitespace-nowrap animate-marquee">
+        <span className="pr-[0.3em]">{children}</span>
+        <span aria-hidden="true" className="pr-[0.3em]">
           {children}
         </span>
       </span>
@@ -45,12 +40,9 @@ export function Marquee({ children, as, breakpoint, durationSec = 50, gap = '0.3
   )
 
   return (
-    <>
-      <style>{keyframes}</style>
-      <Tag className={className}>
-        {breakpoint && <span className={STATIC_AT[breakpoint]}>{children}</span>}
-        {track}
-      </Tag>
-    </>
+    <Tag className={className}>
+      {breakpoint && <span className={STATIC_AT[breakpoint]}>{children}</span>}
+      {track}
+    </Tag>
   )
 }

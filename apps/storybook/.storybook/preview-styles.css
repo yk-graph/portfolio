@@ -1,3 +1,9 @@
 @import "tailwindcss";
+@import "@repo/tailwind-config/theme.css";
 
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
+
+:root {
+  --font-outfit: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
+}
