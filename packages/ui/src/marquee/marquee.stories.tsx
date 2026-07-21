@@ -25,13 +25,6 @@ export const Large: Story = {
   },
 }
 
-export const Fast: Story = {
-  args: {
-    durationSec: 8,
-    className: 'text-4xl font-black',
-  },
-}
-
 export const Heading: Story = {
   args: {
     as: 'h2',
