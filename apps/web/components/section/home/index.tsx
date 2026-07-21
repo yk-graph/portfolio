@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Marquee } from '@repo/ui'
+import { IconCircleLink, Marquee, SlideLink } from '@repo/ui'
 import { Icon, type IconName } from '@/components/common'
 import type { Dictionary } from '@/lib/i18n'
 
@@ -41,12 +41,9 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
         <ul className="flex flex-col gap-6">
           {pageLinks.map(({ label, href, width }) => (
             <li key={label}>
-              <Link
-                href={`/${lang}${href}`}
-                className={`block rounded-r-full bg-neutral-100 py-3 pl-8 text-sm sm:text-base font-bold tracking-widest text-brand-navy transition-[width] duration-300 ease-out ${width}`}
-              >
+              <SlideLink as={Link} href={`/${lang}${href}`} className={`bg-neutral-100 text-brand-navy ${width}`}>
                 {label}
-              </Link>
+              </SlideLink>
             </li>
           ))}
         </ul>
@@ -54,15 +51,15 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
         <ul className="flex flex-col gap-4 pr-6">
           {snsLinks.map(({ label, href, icon }) => (
             <li key={label}>
-              <a
+              <IconCircleLink
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white/10"
+                className="border border-white/40 text-white hover:bg-white/10"
               >
                 <Icon name={icon} size={18} />
-              </a>
+              </IconCircleLink>
             </li>
           ))}
         </ul>
