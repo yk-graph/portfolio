@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
-import { IconCircleLink, Marquee, SlideLink } from '@repo/ui'
-import { Icon, type IconName } from '@/components/common'
+import { IconLink, type IconName, Marquee, SlideLink } from '@repo/ui'
 import type { Dictionary } from '@/lib/i18n'
 
 const pageLinks = [
@@ -51,15 +50,14 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
         <ul className="flex flex-col gap-4 pr-6">
           {snsLinks.map(({ label, href, icon }) => (
             <li key={label}>
-              <IconCircleLink
+              <IconLink
+                icon={icon}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
                 className="border border-white/40 text-white hover:bg-white/10"
-              >
-                <Icon name={icon} size={18} />
-              </IconCircleLink>
+              />
             </li>
           ))}
         </ul>

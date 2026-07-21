@@ -1,4 +1,5 @@
-export * from './icon-circle-link'
+export * from './icon'
+export * from './icon-link'
 export * from './marquee'
 export * from './section-nav'
 export * from './slide-link'

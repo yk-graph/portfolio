@@ -2,7 +2,8 @@
 
 import { motion } from 'motion/react'
 
-import { Icon } from '@/components/common'
+import { Icon } from '@repo/ui'
+
 import type { CareerItem } from '@/lib/content'
 
 export function CareerTimeline({ items }: { items: CareerItem[] }) {
@@ -22,7 +23,7 @@ export function CareerTimeline({ items }: { items: CareerItem[] }) {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="flex w-12 shrink-0 justify-center sm:w-24">
-            <span className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-[var(--color-brand-navy)] text-white">
+            <span className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-brand-navy text-white">
               <Icon name={item.type === 'study' ? 'graduationCap' : 'briefcase'} size={16} />
             </span>
           </div>

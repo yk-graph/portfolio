@@ -1,5 +1,4 @@
 export * from './back-navigation'
 export * from './html-lang-sync'
-export * from './icons'
 export * from './language-switcher'
 export * from './scroll-reveal'

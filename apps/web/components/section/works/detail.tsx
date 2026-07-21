@@ -1,6 +1,5 @@
-import { IconCircleLink } from '@repo/ui'
+import { IconLink } from '@repo/ui'
 
-import { Icon } from '@/components/common'
 import type { Work } from '@/lib/notion'
 
 export function WorksDetail({ work }: { work: Work }) {
@@ -17,28 +16,26 @@ export function WorksDetail({ work }: { work: Work }) {
       <ul className="flex shrink-0 justify-end gap-4">
         {work.repoUrl && (
           <li>
-            <IconCircleLink
+            <IconLink
+              icon="github"
               href={work.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="border border-white/40 text-sm text-white hover:bg-white/10"
               aria-label="Repository"
-            >
-              <Icon name="github" size={18} />
-            </IconCircleLink>
+            />
           </li>
         )}
         {work.liveUrl && (
           <li>
-            <IconCircleLink
+            <IconLink
+              icon="link"
               href={work.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="border border-white/40 text-sm text-white hover:bg-white/10"
               aria-label="Live site"
-            >
-              <Icon name="link" size={18} />
-            </IconCircleLink>
+            />
           </li>
         )}
       </ul>
