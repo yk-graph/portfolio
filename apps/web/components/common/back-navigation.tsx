@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Icon } from './icons'
+import { Icon } from '@repo/ui'
 
 export function BackNavigation() {
   return (

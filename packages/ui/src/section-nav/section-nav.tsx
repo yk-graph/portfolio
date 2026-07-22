@@ -1,11 +1,11 @@
 'use client'
 
-interface SectionNavItem {
+export interface SectionNavItem {
   id: string
   label: string
 }
 
-interface SectionNavProps {
+export interface SectionNavProps {
   items: SectionNavItem[]
   activeIndex: number
   onSelect: (index: number) => void

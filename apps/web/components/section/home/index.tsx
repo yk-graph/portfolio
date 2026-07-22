@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Icon, type IconName } from '@/components/common'
+import { IconLink, type IconName, Marquee, SlideLink } from '@repo/ui'
 import type { Dictionary } from '@/lib/i18n'
 
 const pageLinks = [
@@ -19,25 +19,13 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
   return (
     <div className="@container flex h-full w-full flex-col justify-between py-16">
       <div className="flex flex-col items-end gap-10 text-right">
-        <h1 className="w-full font-heading font-black leading-[0.95]">
-          {/* mobile */}
-          <span className="block text-[clamp(2.5rem,18cqi,5.5rem)] sm:hidden">
-            I&apos;m a
-            <br />
-            Software
-            <br />
-            Developer
-          </span>
-          {/* tablet and laptop */}
-          <span className="hidden w-full overflow-hidden sm:flex">
-            <span className="flex w-max animate-marquee whitespace-nowrap text-left text-[clamp(6rem,15vw,10rem)] leading-none motion-reduce:animate-none">
-              <span className="pr-[0.3em]">I&apos;m a Software Developer</span>
-              <span aria-hidden="true" className="pr-[0.3em]">
-                I&apos;m a Software Developer
-              </span>
-            </span>
-          </span>
-        </h1>
+        <Marquee
+          as="h1"
+          breakpoint="sm"
+          className="w-full font-heading text-[clamp(2.5rem,18cqi,5.5rem)] font-black leading-none sm:text-[clamp(6rem,15vw,10rem)]"
+        >
+          I&apos;m a Software Developer
+        </Marquee>
         <p className="pr-6 text-lg leading-relaxed text-white/70">
           {dict.description.map((line, i) => (
             <span key={i}>
@@ -52,12 +40,9 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
         <ul className="flex flex-col gap-6">
           {pageLinks.map(({ label, href, width }) => (
             <li key={label}>
-              <Link
-                href={`/${lang}${href}`}
-                className={`block rounded-r-full bg-neutral-100 py-3 pl-8 text-sm sm:text-base font-bold tracking-widest text-brand-navy transition-[width] duration-300 ease-out ${width}`}
-              >
+              <SlideLink as={Link} href={`/${lang}${href}`} className={`bg-neutral-100 text-brand-navy ${width}`}>
                 {label}
-              </Link>
+              </SlideLink>
             </li>
           ))}
         </ul>
@@ -65,15 +50,14 @@ export function HomeSection({ dict, lang }: { dict: Dictionary['home']; lang: st
         <ul className="flex flex-col gap-4 pr-6">
           {snsLinks.map(({ label, href, icon }) => (
             <li key={label}>
-              <a
+              <IconLink
+                icon={icon}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white/10"
-              >
-                <Icon name={icon} size={18} />
-              </a>
+                className="border border-white/40 text-white hover:bg-white/10"
+              />
             </li>
           ))}
         </ul>

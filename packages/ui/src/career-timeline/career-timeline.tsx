@@ -2,10 +2,17 @@
 
 import { motion } from 'motion/react'
 
-import { Icon } from '@/components/common'
-import type { CareerItem } from '@/lib/content'
+import { Icon } from '../icon'
 
-export function CareerTimeline({ items }: { items: CareerItem[] }) {
+export interface CareerTimelineItem {
+  id: string
+  type: 'work' | 'study'
+  period: string
+  title: string
+  summary: string
+}
+
+export function CareerTimeline({ items }: { items: CareerTimelineItem[] }) {
   if (items.length === 0) return null
 
   return (
@@ -22,14 +29,14 @@ export function CareerTimeline({ items }: { items: CareerItem[] }) {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="flex w-12 shrink-0 justify-center sm:w-24">
-            <span className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-[var(--color-brand-navy)] text-white">
+            <span className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-brand-navy text-white">
               <Icon name={item.type === 'study' ? 'graduationCap' : 'briefcase'} size={16} />
             </span>
           </div>
 
           <div className="flex-1 rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm sm:p-6">
             <p className="text-xs font-semibold tracking-widest text-white/50">{item.period}</p>
-            <h3 className="mt-1 font-heading text-xl font-bold">{item.title}</h3>
+            <h3 className="mt-1 font-heading text-xl font-bold text-white">{item.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-white/70">{item.summary}</p>
           </div>
         </motion.li>

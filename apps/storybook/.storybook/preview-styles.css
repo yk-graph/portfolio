@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@import "@repo/tailwind-config/theme.css";
 
-/* Scan packages/ui source so Tailwind picks up classes used by shared components. */
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
+
+:root {
+  --font-outfit: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
+}

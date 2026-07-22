@@ -48,17 +48,18 @@ parallel-slot / background-remount workarounds that the one-page pager avoids.
 
 ## 3. Directory responsibilities (decided)
 
-| Path                    | Responsibility                                                         |
-| ----------------------- | ---------------------------------------------------------------------- |
-| `apps/web/app/`         | Route segments ONLY (App Router). No non-route code here.              |
-| `apps/web/components/`  | Site-specific composite UI (Hero, ProjectCard). NOT generic.           |
-| `apps/web/constants/`   | Static app data/config (e.g. section definitions).                     |
-| `apps/web/content/`     | Authored Markdown content, per locale (e.g. `about/career.<lang>.md`). |
-| `apps/web/lib/`         | App logic: data fetching, the Notion data layer, i18n, helpers.        |
-| `apps/web/lib/i18n/`    | Locale config + server-side UI dictionaries (see section 7).           |
-| `apps/web/lib/content/` | Loads + parses authored Markdown from `content/` (e.g. career).        |
-| `apps/web/proxy.ts`     | Locale detection + redirect (middleware); excludes `/api` + assets.    |
-| `packages/ui/`          | Generic, reusable UI only (Button, Card). Imported as `@repo/ui`.      |
+| Path                        | Responsibility                                                                                                                                                                                                                                                                                                      |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apps/web/app/`             | Route segments ONLY (App Router). No non-route code here.                                                                                                                                                                                                                                                           |
+| `apps/web/components/`      | Route-bound, data-fetching, or app-shell components (providers, section pager, language switcher). Purely presentational pieces go to `packages/ui` instead.                                                                                                                                                        |
+| `apps/web/constants/`       | Static app data/config (e.g. section definitions).                                                                                                                                                                                                                                                                  |
+| `apps/web/content/`         | Authored Markdown content, per locale (e.g. `about/career.<lang>.md`).                                                                                                                                                                                                                                              |
+| `apps/web/lib/`             | App logic: data fetching, the Notion data layer, i18n, helpers.                                                                                                                                                                                                                                                     |
+| `apps/web/lib/i18n/`        | Locale config + server-side UI dictionaries (see section 7).                                                                                                                                                                                                                                                        |
+| `apps/web/lib/content/`     | Loads + parses authored Markdown from `content/` (e.g. career).                                                                                                                                                                                                                                                     |
+| `apps/web/proxy.ts`         | Locale detection + redirect (middleware); excludes `/api` + assets.                                                                                                                                                                                                                                                 |
+| `packages/ui/`              | Prop-driven presentational UI, imported as `@repo/ui` and cataloged in Storybook: generic primitives (SectionNav, SplashScreen, Marquee, SlideLink, IconLink) plus site-flavored pieces (CareerTimeline, TechStack) and the shared `Icon` registry (react-icons). No data fetching — content is injected via props. |
+| `packages/tailwind-config/` | Shared Tailwind design tokens (`theme.css`: brand colors, fonts, animations). Imported by web + Storybook so tokens are not owned by either.                                                                                                                                                                        |
 
 The root `app/layout.tsx` owns `<html>`/`<body>`, the app shell (providers,
 language switcher), the `SectionProvider` (active-section state) and the animated
@@ -74,8 +75,16 @@ Non-route code (components, constants, lib) lives at the `apps/web` root, not
 under `app/`, so route segments stay clearly separated from shared code. It is
 imported via the `@/*` alias.
 
-Boundary rule: if a component is reusable across projects → `packages/ui`.
-If it is specific to this site → `apps/web/components/`.
+Boundary rule (presentation vs. data): prop-driven presentational components live
+in `packages/ui` and are cataloged in Storybook — this now includes site-flavored
+pieces (e.g. `CareerTimeline`, `TechStack`), as long as they hold no data fetching
+or business logic and receive their content via props. The site-specific data
+itself stays in `apps/web` (`constants/`, `lib/`, `content/`) and is injected as
+props; the shared `Icon` registry (react-icons) also lives in `packages/ui`.
+Route-bound, data-fetching, or app-shell components stay in `apps/web/components/`.
+Why: keeping every presentational component in one Storybook-cataloged place makes
+them reviewable in isolation, while data ownership stays with the app. This refines
+the earlier "generic-only" rule for `packages/ui`.
 
 ## 4. Data flow (decided)
 
