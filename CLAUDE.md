@@ -17,7 +17,7 @@ For commands, ports, and versions, read the relevant `package.json` /
 
 ## Three design principles (return here when unsure)
 
-1. Separate generic from specific (generic → packages/, specific → app components/)
+1. Separate presentation from data (prop-driven presentational UI → packages/, data + fetching + app-shell → app; see docs/architecture.md §3)
 2. Share only what multiple projects use (YAGNI)
 3. Centralize versions and config (pnpm catalog, shared tsconfig)
 
