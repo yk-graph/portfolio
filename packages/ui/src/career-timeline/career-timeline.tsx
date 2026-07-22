@@ -2,11 +2,17 @@
 
 import { motion } from 'motion/react'
 
-import { Icon } from '@repo/ui'
+import { Icon } from '../icon'
 
-import type { CareerItem } from '@/lib/content'
+export interface CareerTimelineItem {
+  id: string
+  type: 'work' | 'study'
+  period: string
+  title: string
+  summary: string
+}
 
-export function CareerTimeline({ items }: { items: CareerItem[] }) {
+export function CareerTimeline({ items }: { items: CareerTimelineItem[] }) {
   if (items.length === 0) return null
 
   return (
@@ -30,7 +36,7 @@ export function CareerTimeline({ items }: { items: CareerItem[] }) {
 
           <div className="flex-1 rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm sm:p-6">
             <p className="text-xs font-semibold tracking-widest text-white/50">{item.period}</p>
-            <h3 className="mt-1 font-heading text-xl font-bold">{item.title}</h3>
+            <h3 className="mt-1 font-heading text-xl font-bold text-white">{item.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-white/70">{item.summary}</p>
           </div>
         </motion.li>
