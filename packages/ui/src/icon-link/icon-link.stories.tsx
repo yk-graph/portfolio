@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { IconLink } from './icon-link'
+import { iconNames } from '../icon'
 
 const meta = {
   title: 'UI/IconLink',
@@ -9,6 +10,12 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  argTypes: {
+    icon: {
+      control: 'select',
+      options: iconNames,
+    },
+  },
   args: {
     icon: 'github',
     href: '#',

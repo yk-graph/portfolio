@@ -13,6 +13,8 @@ const iconRegistry = {
 
 export type IconName = keyof typeof iconRegistry
 
+export const iconNames = Object.keys(iconRegistry) as IconName[]
+
 export interface IconProps extends IconBaseProps {
   name: IconName
 }
