@@ -36,7 +36,8 @@
   "dependencies": {
     "lucide-react": "catalog:",
     "motion": "catalog:",
-    "react": "catalog:"
+    "react": "catalog:",
+    "react-icons": "catalog:"
   },
   "publishConfig": {
     "access": "public"

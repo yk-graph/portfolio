@@ -1,4 +1,3 @@
-import type { IconType } from 'react-icons'
 import { FaAws, FaMasksTheater } from 'react-icons/fa6'
 import {
   SiAstro,
@@ -48,9 +47,9 @@ import {
   SiWordpress,
 } from 'react-icons/si'
 
-type Tech = { name: string; Icon: IconType }
+import type { TechStackItem } from '@repo/ui'
 
-const TECH_STACK: Tech[] = [
+export const TECH_STACK: TechStackItem[] = [
   { name: 'HTML5', Icon: SiHtml5 },
   { name: 'CSS', Icon: SiCss },
   { name: 'JavaScript', Icon: SiJavascript },
@@ -99,19 +98,3 @@ const TECH_STACK: Tech[] = [
   { name: 'Prettier', Icon: SiPrettier },
   { name: 'Figma', Icon: SiFigma },
 ]
-
-export function TechStack() {
-  return (
-    <ul className="flex flex-wrap gap-2.5">
-      {TECH_STACK.map(({ name, Icon }) => (
-        <li
-          key={name}
-          className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 transition-colors hover:bg-white/10"
-        >
-          <Icon size={18} className="text-white" aria-hidden />
-          <span className="font-sans text-sm font-bold">{name}</span>
-        </li>
-      ))}
-    </ul>
-  )
-}

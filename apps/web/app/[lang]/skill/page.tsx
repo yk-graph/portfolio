@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+import { TechStack } from '@repo/ui'
+
 import { BackNavigation, ScrollReveal } from '@/components/common'
-import { ContributionCalendar, LanguageList, TechStack } from '@/components/skill'
+import { ContributionCalendar, LanguageList } from '@/components/skill'
+import { TECH_STACK } from '@/constants'
 import { getGithubSkill } from '@/lib/github'
 import { hasLocale } from '@/lib/i18n'
 import { getDictionary } from '@/lib/i18n/dictionaries'
@@ -46,7 +49,7 @@ export default async function SkillPage({ params }: { params: Promise<{ lang: st
 
         <ScrollReveal className="my-4 flex flex-col gap-4 sm:my-8">
           <h2 className="font-heading text-2xl font-black">{t.techStack}</h2>
-          <TechStack />
+          <TechStack items={TECH_STACK} />
         </ScrollReveal>
       </div>
     </div>
