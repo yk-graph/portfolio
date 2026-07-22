@@ -1,4 +1,5 @@
-import { Icon } from '@/components/common'
+import { Icon } from '@repo/ui'
+
 import type { ContributionCalendar as ContributionCalendarData } from '@/lib/github'
 
 const LEVEL_COLORS = ['rgba(255,255,255,0.08)', '#0e4429', '#006d32', '#26a641', '#39d353']

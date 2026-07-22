@@ -1,2 +1,1 @@
-export * from './sections'
 export * from './tech-stack'

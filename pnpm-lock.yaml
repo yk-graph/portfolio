@@ -27,9 +27,6 @@ catalogs:
     motion:
       specifier: ^12.42.0
       version: 12.42.0
-    next-themes:
-      specifier: ^0.4.6
-      version: 0.4.6
     react:
       specifier: ^19.2.0
       version: 19.2.7
@@ -62,12 +59,12 @@ importers:
 
   apps/storybook:
     dependencies:
+      '@repo/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/tailwind-config
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      next-themes:
-        specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
         specifier: 'catalog:'
         version: 19.2.7
@@ -171,9 +168,6 @@ importers:
       next:
         specifier: 16.2.9
         version: 16.2.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      next-themes:
-        specifier: 'catalog:'
-        version: 0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
         specifier: 'catalog:'
         version: 19.2.7
@@ -184,6 +178,9 @@ importers:
         specifier: 'catalog:'
         version: 5.6.0(react@19.2.7)
     devDependencies:
+      '@repo/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/tailwind-config
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -212,6 +209,8 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
+  packages/tailwind-config: {}
+
   packages/typescript-config: {}
 
   packages/ui:
@@ -222,12 +221,12 @@ importers:
       motion:
         specifier: 'catalog:'
         version: 12.42.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      next-themes:
-        specifier: 'catalog:'
-        version: 0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
         specifier: 'catalog:'
         version: 19.2.7
+      react-icons:
+        specifier: 'catalog:'
+        version: 5.6.0(react@19.2.7)
     devDependencies:
       '@eslint/js':
         specifier: ^9.17.0
@@ -3388,12 +3387,6 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
-
-  next-themes@0.4.6:
-    resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
-    peerDependencies:
-      react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
-      react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   next@16.2.9:
     resolution: {integrity: sha512-MEOJiq/UvuezAdqVSceHbqDgZt1kDw2tpGVOlsdIoJsQdbN2JY2hpVG4xnXGkbdJUOEWhnRfiu/O4Hpc9Juwww==}
@@ -7471,11 +7464,6 @@ snapshots:
   napi-postinstall@0.3.4: {}
 
   natural-compare@1.4.0: {}
-
-  next-themes@0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
-    dependencies:
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
 
   next@16.2.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:

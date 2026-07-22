@@ -2,7 +2,8 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { CareerTimeline } from '@/components/about'
+import { CareerTimeline } from '@repo/ui'
+
 import { BackNavigation } from '@/components/common'
 import { getCareer } from '@/lib/content'
 import { hasLocale } from '@/lib/i18n'

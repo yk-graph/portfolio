@@ -13,8 +13,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@repo/tailwind-config": "workspace:*",
     "@repo/ui": "workspace:*",
-    "next-themes": "^0.4.6",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
