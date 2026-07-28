@@ -71,7 +71,7 @@ jobs:
   deploy:
     name: Deploy to Mac mini
     needs: build
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: [self-hosted, macOS, ARM64, portfolio]
 
     steps:
       - name: Deploy
