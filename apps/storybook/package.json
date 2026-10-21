@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "type-check": "tsc -b",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 4006",
+    "storybook": "storybook dev -p 4026",
     "build-storybook": "storybook build"
   },
   "dependencies": {
