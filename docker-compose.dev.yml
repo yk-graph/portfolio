@@ -22,7 +22,7 @@ services:
       dockerfile: apps/storybook/Dockerfile.dev
     container_name: portfolio-storybook-dev
     ports:
-      - '4006:4006'
+      - '4026:4026'
     environment:
       - CI=true
     volumes:
