@@ -3,7 +3,7 @@ services:
     image: ghcr.io/yk-graph/portfolio-web:staging
     container_name: portfolio-web-stg
     ports:
-      - '4010:4000'
+      - '127.0.0.1:4010:4000'
     env_file:
       - .env
     environment:
@@ -14,5 +14,5 @@ services:
     image: ghcr.io/yk-graph/portfolio-storybook:staging
     container_name: portfolio-storybook-stg
     ports:
-      - '4016:80'
+      - '127.0.0.1:4016:80'
     restart: unless-stopped
