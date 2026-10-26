@@ -17,7 +17,7 @@ GitHub Actions (CD)
   │     build linux/arm64 images → push to GHCR
   │
   └─ deploy job (self-hosted runner on the Mac mini)
-        docker compose pull → up -d   (no --build)
+        GHCR login (GITHUB_TOKEN) → docker compose pull → up -d   (no --build)
 ```
 
 Images are consumed via `image:` in `docker-compose.stg.yml` /
@@ -49,11 +49,27 @@ the edge. Keeping them in CI means no build secrets have to sit on the Mac mini.
 
 ### 4. GHCR auth on the Mac mini
 
-GHCR packages are private, so the Mac mini must authenticate to pull.
-`docker login` over SSH fails because it cannot reach the macOS Keychain
-(`User interaction is not allowed`), so the credential is written directly to
-`~/.docker/config.json` (base64 of `user:PAT`, PAT scoped to `read:packages`).
-The self-hosted runner reads the same config, so its automated pulls work too.
+GHCR packages are private, so the deploy job must authenticate to pull.
+It logs in per run with the job's short-lived `GITHUB_TOKEN`
+(`docker/login-action`, which logs out again at job end). No long-lived
+PAT is stored on the Mac mini.
+
+**Why not a PAT in `~/.docker/config.json`:** that was the original setup.
+It broke silently once the PAT lapsed (`error from registry: denied`), and
+because build secrets end up as `ENV` in the web image, a leaked read-only PAT
+would expose them too.
+
+**Keychain pitfall — keep the placeholder entry.** The runner is a
+background service and cannot use the macOS Keychain
+(`User interaction is not allowed`). When `auths` in `~/.docker/config.json`
+is empty, the Docker CLI auto-selects the Keychain credential store, and the
+login fails. So the Mac mini's config keeps a dummy entry,
+`"auths": { "placeholder.invalid": {} }`, which forces the plain-file store.
+It must NOT be `ghcr.io`: the post-job `docker logout ghcr.io` deletes that
+key, emptying `auths` and breaking the next run.
+
+Manual pulls on the Mac mini (outside CD) are no longer authenticated; use a
+short-lived PAT for one-off debugging if needed.
 
 ## Content-update cadence
 
