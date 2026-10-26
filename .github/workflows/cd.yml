@@ -72,8 +72,18 @@ jobs:
     name: Deploy to Mac mini
     needs: build
     runs-on: [self-hosted, macOS, ARM64, portfolio]
+    permissions:
+      contents: read
+      packages: read
 
     steps:
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Deploy
         run: |
           cd ~/server/srv/portfolio
